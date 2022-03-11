@@ -10,14 +10,14 @@ typedef struct Calif
 	int Id_materia;
 	int Id_amun;
 	int Valor_calif;
-}
+};
 
 typedef struct Mat_Alum
 {
 	char Mat[51];
 	Calif* Calf_;
 
-}
+};
 
 typedef struct Alumnos
 {
