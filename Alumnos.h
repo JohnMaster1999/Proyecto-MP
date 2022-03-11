@@ -1,7 +1,7 @@
 #ifndef ALUMNOS_H
 #define ALUMNOS_H
 
-#include <Fecha.h>
+#include "Fecha.h"
 
 typedef struct Calif
 {
@@ -10,14 +10,14 @@ typedef struct Calif
 	int Id_materia;
 	int Id_amun;
 	int Valor_calif;
-};
+} Calif;
 
 typedef struct Mat_Alum
 {
 	char Mat[51];
 	Calif* Calf_;
 
-};
+}Mat_Alum;
 
 typedef struct Alumnos
 {
@@ -29,7 +29,7 @@ typedef struct Alumnos
 	char Grup[11];
 	Mat_Alum* Materias;
 
-};
+}Alumnos;
 
 
 #endif
