@@ -9,6 +9,6 @@ typedef struct Usuarios
 	char NomU[6];
 	char pass[9];
 
-};
+}Usuarios ;
 
 #endif
