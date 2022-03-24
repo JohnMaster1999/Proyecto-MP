@@ -3,37 +3,19 @@
 
 Carga_datos (Alumnos* al, Materias* mat, Usuarios* us, int* alM, int* matM, int* usM)
 {
-	FILE *alum, *us, *mat, *mat, *calf, *hor;
-	char c[51];
+	FILE *alum, *us, *mat, *calf, *hor;
+	int cmax = 51;
+	char c[cmax];
 
-	mat=fopen("materias.txt", "r");
-	if (mat==NULL)
+	us = fopen ("usuario.txt", "r");
+
+	if (us == NULL)
 	{
-		printf("\n ERROR EN LA APERTURA DE 'materias.txt' \n");
-		exit(1);
-	}else
-	{
-		fgets (mat);
-
-		int atributo;
-		while (c!=EOF)
-		{
-			switch (atributo)
-			{
-				case 1:
-					if ((int)c!=0)
-
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				default:
-					printf("Error inesperado en carga de mat");
-
-			}
-
-		}
+		printf("\nSe ha producido un error en la apertura del fichero: usuarios.txt\n");
+		exit (1);
+	}else{ //USUARIOS.txt abierto exitosamente
+		fgets
 	}
+
 
 }
