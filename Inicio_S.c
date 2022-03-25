@@ -4,7 +4,7 @@
 
 //Cabecera: int inicio(Usuarios*, int).
 //Precondición: recibe la estructura usuarios y el número de usuarios.
-//Postcondición: devuelve el ID del usuario.
+//Postcondición: devuelve la posición del usuario en el vector de estructura.
 
 int inicio(Usuarios *user, int n_usuarios)
 {
@@ -35,21 +35,23 @@ int inicio(Usuarios *user, int n_usuarios)
 
     }while(n==0);
     
-    do{
     fgets(pass, 9, stdin);
     fflush(stdin);
     usu[9]='\0'
     
-    while(id==0)
+    while(n==1)
     {
         printf("Contraseña:");
+        
+        fgets(pass, 9, stdin);
+        fflush(stdin);
+        usu[9]='\0'
+            
         if(strcmp(pass, user[i].pass)==0)
             printf("    Contraseña correcta.\n\n\nIniciando sesión...");
-            id = user[i].idUs;
+            n=0;
         else
-            printf("Contraseña incorrecta, vuelve a introducirla.");
+            printf("    Contraseña incorrecta, vuelve a introducirla.");
     }
-    
-    return id;
-
+    return i;
 }
