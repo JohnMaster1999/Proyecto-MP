@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "Inicio_S.h"
+
 //Cabecera: int inicio(Usuarios*, int).
 //Precondición: recibe la estructura usuarios y el número de usuarios.
 //Postcondición: devuelve el ID del usuario.
