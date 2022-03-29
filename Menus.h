@@ -24,9 +24,8 @@ void menu_grupo(int);
 //Precondición:recibe la estructura de alumnos.
 //Postcondición:opera con los alumnos.
 void menu_alumn();
-//Cabecera: void menu_admin().
-//Precondición:
-//Postcondición:
-void menu_admin();
-
+//Cabecera: void Menu_admin(profesor *, clase *, materia *, horario *).
+//Precondición:recibe cuatro punteros, de la estructura usuarios, alumnos, materias y horarios.
+//Postcondición: va llamando a las correspondientes operaciones del administrador
+void Menu_admin(profesor *, clase *, materia *, horario *)
 #endif // Menus
