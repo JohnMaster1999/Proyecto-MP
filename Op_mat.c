@@ -47,10 +47,13 @@ void materias_modificar(int Id_mat,Materias m)
   else printf("Error:Materia de ID:%i no encontrada\n",Id_mat);
 }
 
-char* materias_listar(int n, int Id_mat) //n = 0 -> retorna el nombre de la materia del ID; n = 1 -> retorna la abreviación de la materia del ID; n > 1 -> printea la información de todas las materias
+char* materias_listar(int n, int Id_mat)
+/*n = 0 -> retorna el nombre de la materia del ID; n = 1 -> retorna la abreviación de la materia del ID;
+n = 2 -> printea toda la información de todas las materias; n = 3 -> printea el id y nombre de todas las materias*/
 {
   int o = existe_materia(Id_mat);
   if(o < 0 && n <= 1) return "(Error: Materia no existe)";
+  if(n==3) printf("ID  | NOMBRE\n");
   for(int i=0;i<vmaterias_size-1;i++)
   {
     if(n<=1)
@@ -65,8 +68,17 @@ char* materias_listar(int n, int Id_mat) //n = 0 -> retorna el nombre de la mate
           break;
       }
       break;
-    }else printf("\nId: %i\nNombre: %s\nAbrev: %s\n",vmaterias[i].Id_materia,vmaterias[i].Nombre_Materia,vmaterias[i].Abrev_materia);
-
+    }else {
+      switch (n)
+      {
+        case 2:
+          printf("\nId: %i\nNombre: %s\nAbrev: %s\n",vmaterias[i].Id_materia,vmaterias[i].Nombre_Materia,vmaterias[i].Abrev_materia);
+          break;
+        case 3:
+          printf("%i | %s\n",vmaterias[i].Id_materia,vmaterias[i].Nombre_Materia);
+          break;
+      }
+    }
   }
 }
 
