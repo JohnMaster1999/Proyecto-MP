@@ -37,14 +37,14 @@ void materias_darDeBaja(int Id_mat)
     for(int i=n;i<vmaterias_size-1;i++) *(vmaterias+i) = *(vmaterias+i+1);
     vmaterias_size--;
     VMATERIAS_RESIZE
-  } else printf("Error:Materia de ID:%i no encontrada\n",Id_mat);
+  } else printf("Error: Materia de ID:%i no encontrada\n",Id_mat);
 }
 
 void materias_modificar(int Id_mat,Materias m)
 {
   int n = existe_materia(Id_mat);
   if(n>=0) vmaterias[n] = m;
-  else printf("Error:Materia de ID:%i no encontrada\n",Id_mat);
+  else printf("Error: Materia de ID:%i no encontrada\n",Id_mat);
 }
 
 char* materias_listar(int n, int Id_mat)
