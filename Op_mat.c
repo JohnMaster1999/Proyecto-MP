@@ -4,14 +4,29 @@
 #include "Materias.h"
 #define VMATERIAS_RESIZE vmaterias = (Materias*) realloc(vmaterias,vmaterias_size*sizeof(Materias));
 
-Materias* vmaterias; //vector dinÃ¡mico de materias
-int vmaterias_size = 1; //int que almacena constantemente su tamaÃ±o
+Materias* vmaterias; //vector dinámico de materias
+int vmaterias_size = 1; //int que almacena constantemente su tamaño
+
+int existe_materia(int Id_mat)
+{
+  int n = 0;
+  int exists = 1;
+
+  while(vmaterias[n].Id_materia != Id_mat)
+  {
+    if (n==vmaterias_size) {exists = 0; break;}
+    n++;
+  }
+  if (exists) return n;
+  else return -1;
+}
 
 void materias_darDeAlta(Materias m)
 {
   *(vmaterias+vmaterias_size-1) = m;
   vmaterias_size++;
   VMATERIAS_RESIZE
+  //printf("(%s->%s)\n",m.Nombre_Materia,vmaterias[vmaterias_size-2].Nombre_Materia); Línea de debug
 }
 
 void materias_darDeBaja(int Id_mat)
@@ -32,9 +47,10 @@ void materias_modificar(int Id_mat,Materias m)
   else printf("Error:Materia de ID:%i no encontrada\n",Id_mat);
 }
 
-char* materias_listar(int n, int Id_mat) //n = 0 -> retorna el nombre de la materia del ID; n = 1 -> retorna la abreviaciÃ³n de la materia del ID; n > 1 -> printea la informaciÃ³n de todas las materias
+char* materias_listar(int n, int Id_mat) //n = 0 -> retorna el nombre de la materia del ID; n = 1 -> retorna la abreviación de la materia del ID; n > 1 -> printea la información de todas las materias
 {
   int o = existe_materia(Id_mat);
+  if(o < 0 && n <= 1) return "(Error: Materia no existe)";
   for(int i=0;i<vmaterias_size-1;i++)
   {
     if(n<=1)
@@ -54,16 +70,30 @@ char* materias_listar(int n, int Id_mat) //n = 0 -> retorna el nombre de la mate
   }
 }
 
-int existe_materia(int Id_mat)
+Materias materias_crear(int Id_mat,int n)
 {
-  int n = 0;
-  int exists = 1;
 
-  while(vmaterias[n].Id_materia != Id_mat)
+  Materias m;
+
+  printf("Introduzca el Id: ");
+  scanf("%i",&m.Id_materia);
+
+  printf("Introduzca el Nombre: ");
+  scanf("%s",&m.Nombre_Materia);
+
+  printf("Introduzca la abreviatura: ");
+  scanf("%s",&m.Abrev_materia);
+
+  printf("(%i,%s,%s)\n",m.Id_materia,m.Nombre_Materia,m.Abrev_materia);
+
+  switch(n)
   {
-    if (n==vmaterias_size) {exists = 0; break;}
-    n++;
+        case 1:
+          materias_darDeAlta(m);
+          break;
+        case 2:
+          materias_modificar(Id_mat,m);
+          break;
   }
-  if (exists) return n;
-  else return -1;
+  return m;
 }
