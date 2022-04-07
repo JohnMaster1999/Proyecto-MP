@@ -4,10 +4,10 @@
 Carga_datos (Alumnos* al, Materias* mate, Usuarios* usu, int* alM, int* matM, int* usM)
 {
 	FILE *alum, *us, *mat, *calf, *hor;
-	int cmax = 51;
+	int cmax = 59;
 	char c[cmax];
-	*usM = 1;
-	int i;
+	*usM = 1; matM = 1;
+	int i, j;
 
 
 	us = fopen ("usuario.txt", "r");
@@ -22,7 +22,7 @@ Carga_datos (Alumnos* al, Materias* mate, Usuarios* usu, int* alM, int* matM, in
 		while(fgets(c, cmax, us)!=NULL)
 		{
 			usu = (Usuarios*) realloc(usu, *usM * sizeof(Usuarios));
-			int j=0;
+			j=0;
 			do
 			{
 				usu[*usM-1].Nomb[j] = c[i];
@@ -54,7 +54,7 @@ Carga_datos (Alumnos* al, Materias* mate, Usuarios* usu, int* alM, int* matM, in
 			{
 				usu[*usM-1].pass[j] = c[i];
 				i++; j++;
-			}while(c[i]!= EOF);
+			}while(c[i]!= '/0');
 			usu[*usM-1].pass[j] = '/0';
 			i=0;
 			*usM++;
@@ -67,11 +67,43 @@ Carga_datos (Alumnos* al, Materias* mate, Usuarios* usu, int* alM, int* matM, in
 
 	if (mat == NULL)
 	{
-		puts("Se ha producido un error en la apertura del fichero: usuarios.txt");
+		puts("Se ha producido un error en la apertura del fichero: materias.txt");
 		exit (1);
 	}else
 	{//MATERIAS.TXT abierto exitosamente
+		while(fgets(c, cmax, mat) != NULL)
+		{
+			mate = (Materias*) realloc(mate, *matM * sizeof(Materias));
+			j = 0;
+			char id[4]
+			do
+			{
+				id[j] = c[i];
+				i++; j++;
+			}while(c[i]!='-');
+			sscanf(id, "%d", &mate[*matM-1].Id_materia);
+			i++;
 
+			j = 0;
+			do
+			{
+				mate[*matM-1].Nombre_Materia[j] = c[i];
+				i++; j++;
+			}while (c[i] != '-');
+			mate[*matM-1].Nombre_Materia[j] = '/0';
+			i++;
+
+			j = 0;
+			do
+			{
+				mate[*matM-1].Abrev_materia[j] = c[i];
+				i++; j++;
+			}while (c[i] != '/0');
+			mate[*matM-1].Abrev_materia[j] = '/0';
+			i = 0;
+
+
+		}
 	}
 
 
