@@ -4,8 +4,8 @@
 #include "Materias.h"
 #define VMATERIAS_RESIZE vmaterias = (Materias*) realloc(vmaterias,vmaterias_size*sizeof(Materias));
 
-Materias* vmaterias; //vector dinámico de materias
-int vmaterias_size = 1; //int que almacena constantemente su tamaño
+Materias* vmaterias; //vector dinÃ¡mico de materias
+int vmaterias_size = 1; //int que almacena constantemente su tamaÃ±o
 
 int existe_materia(int Id_mat)
 {
@@ -26,7 +26,7 @@ void materias_darDeAlta(Materias m)
   *(vmaterias+vmaterias_size-1) = m;
   vmaterias_size++;
   VMATERIAS_RESIZE
-  //printf("(%s->%s)\n",m.Nombre_Materia,vmaterias[vmaterias_size-2].Nombre_Materia); Línea de debug
+  //printf("(%s->%s)\n",m.Nombre_Materia,vmaterias[vmaterias_size-2].Nombre_Materia); LÃ­nea de debug
 }
 
 void materias_darDeBaja(int Id_mat)
@@ -48,8 +48,8 @@ void materias_modificar(int Id_mat,Materias m)
 }
 
 char* materias_listar(int n, int Id_mat)
-/*n = 0 -> retorna el nombre de la materia del ID; n = 1 -> retorna la abreviación de la materia del ID;
-n = 2 -> printea toda la información de todas las materias; n = 3 -> printea el id y nombre de todas las materias*/
+/*n = 0 -> retorna el nombre de la materia del ID; n = 1 -> retorna la abreviaciÃ³n de la materia del ID;
+n = 2 -> printea toda la informaciÃ³n de todas las materias; n = 3 -> printea el id y nombre de todas las materias*/
 {
   int o = existe_materia(Id_mat);
   if(o < 0 && n <= 1) return "(Error: Materia no existe)";
@@ -87,8 +87,32 @@ Materias materias_crear(int Id_mat,int n)
 
   Materias m;
 
-  printf("Introduzca el Id: ");
-  scanf("%i",&m.Id_materia);
+  int id;
+  int loop;
+  do
+  {
+  	loop = 0;
+  	printf("Introduzca el ID: ");
+  	scanf("%i",&id);
+  	switch (n)
+  	{
+  		case 0:
+		case 1:
+			if (existe_materia(id)>=0) 
+			{
+				printf("Error: Materia de id %i (%s) ya existe\n",id,vmaterias[existe_materia(id)].Abrev_materia);
+				loop = 1;
+			}
+			break;
+		case 2:
+			if(existe_materia(id)>=0 && id != Id_mat)
+			{
+				printf("Error: No se puede sustituir el id %i por el %i de la materia (%s) ya existente\n",Id_mat,id,vmaterias[existe_materia(id)].Abrev_materia);
+				loop = 1;
+			}
+	}
+  }while(loop);
+  m.Id_materia = id;
 
   printf("Introduzca el Nombre: ");
   scanf("%s",&m.Nombre_Materia);
@@ -96,7 +120,7 @@ Materias materias_crear(int Id_mat,int n)
   printf("Introduzca la abreviatura: ");
   scanf("%s",&m.Abrev_materia);
 
-  printf("(%i,%s,%s)\n",m.Id_materia,m.Nombre_Materia,m.Abrev_materia);
+  printf("\n");
 
   switch(n)
   {
