@@ -139,7 +139,7 @@ Alumnos* Modificar_ficha(int index)
     }
 }
 
-void ficha_alumnos(Alumnos *clase, int  i)
+void ficha_alumnos(Alumnos *clase, int  i) //para el módulo de OP.ALUM
 {
     printf("%d", clase[i].idUs);
     puts(clase[i].Nomb);
@@ -151,18 +151,41 @@ void ficha_alumnos(Alumnos *clase, int  i)
     clase = Modificar_ficha(i);
 }
 
-void Calificaciones_alum(Alumnos *clase, int  i)
+void Calificaciones_alum(Alumnos *clase, int  i)  //para el módulo de OP.ALUM
 {
 
 }
 
-void Lista_Grupos(Alumnos *clase)
+int Opciones_Usuario()
 {
-    //clase.Materias->Calf_->
+    int opcion;
 
-    while(num_mat != 0)
+    printf("\t1.Lista de Alumnos\n");
+    printf("\t2.Cambiar de grupo\n\n");
+
+    printf("Indique una opci%cn: ", 162);
+    scanf("%d", &opcion);
+
+    return opcion;
+}
+
+//void Lista_alum(Alumnos *clase);
+
+void Menu_Grupo(Alumnos *clase)
+{
+    int op = Opciones_Usuario();
+
+    printf("GRUPO %d %s  MATERIA %s"); // CURSO NOMBRE_GRUPO ABREVIATURA
+
+    switch(op)
     {
+        case 1: Lista_alum(clase);
+        break;
 
+        case 2: Lista_Grupos(clase);
+        break;
     }
+
 }
 
+1º)//void Lista_Grupos(Alumnos *clase) > Seleccionar grupo >
