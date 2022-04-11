@@ -2,22 +2,24 @@
 #include "Usuarios.h"
 #include "Alumnos.h"
 #include "Materias.h"
+#include "Op_mat.h"
 #include "Fecha.h"
+#include "Op_fecha.h"
 
 Alumnos *clase;
 Usuarios *prof;
 Materias *mat;
-Fecha *hor; //### Preguntar sobre su tratamiento ###
+Fecha *hor;
 
 int num_prof, num_alum, num_mat, num_hor;
 
-prof = (Usuarios*)malloc(num_prof*sizeof(Usuarios))
+prof = (Usuarios*)malloc(num_prof*sizeof(Usuarios));
 clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));
 mat = (Materias*)malloc(num_mat*sizeof(Materias));
 clase = (Fecha*)malloc(num_hor*sizeof(Fecha));
 
 
-void Dar_alta(&prof, &clase, &mat, &hor, op1)
+void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, op1)
 {
     switch(op1)
     {
@@ -30,14 +32,13 @@ void Dar_alta(&prof, &clase, &mat, &hor, op1)
             printf("Introduzca el ID: ");
             scanf("%d", prof[num_prof].idUs);
             printf("Introduzca el Nombre: ");
-            prof[num_prof].Nomb = gets(); //Lee el nombre, REVISAR
+            prof[num_prof].Nomb = gets();
             printf("Introduzca el tipo de Perfil: ");
             prof[num_prof].Perf = gets();
             printf("Introduzca el Nombre de Usuario: ");
             prof[num_prof].NomU = gets();
             printf("Introduzca una Contrase%ca: ", 164);
             prof[num_prof].pass = gets();
-
         }
         break;
 
@@ -63,32 +64,35 @@ void Dar_alta(&prof, &clase, &mat, &hor, op1)
         }
         break;
 
-        case 3:
+        case 3: //### Funciones del m贸dulo de Manuel ###
         {
-            mat = (Materias*)realloc(mat, (num_mat + 1)*sizeof(Materias));
+            /*mat = (Materias*)realloc(mat, (num_mat + 1)*sizeof(Materias));
+
 
             printf("Introduzca el ID de Materia: ");
             scanf("%d", mat[num_mat].Id_materia);
             printf("Introduzca el Nombre de la Materia: ");
             mat[num_mat].Nombre_Materia = gets();
             printf("Introduzca la Abreviatura de la Materia: ");
-            mat[num_mat].Abrev_Materia = gets();
-
+            mat[num_mat].Abrev_Materia = gets();*/
         }
         break;
 
-        case 4:
+        case 4: //### Funciones del m贸dulo de Manuel ###
         {
-            hor = (Fecha*)realloc(hor, (num_hor + 1)*sizeof(Fecha));
+           // hor = (Fecha*)realloc(hor, (num_hor + 1)*sizeof(Fecha));
         }
         break;
 
-        default: printf("Ha ocurrido un error.\n");
-                 exit(1);
+        default:
+        {
+            printf("Ha ocurrido un error.\n");
+        }
+
     }
 }
 
-void Dar_baja(&prof, &clase, &mat, &hor, op1)
+void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, op1)
 {
     switch(op1)
     {
@@ -104,24 +108,27 @@ void Dar_baja(&prof, &clase, &mat, &hor, op1)
         }
         break;
 
-        case 3:
+        case 3: //### Funciones del m贸dulo de Manuel ###
         {
 
         }
         break;
 
-        case 4:
+        case 4: //### Funciones del m贸dulo de Manuel ###
         {
 
         }
         break;
 
-        default: printf("Ha ocurrido un error.\n");
-                 exit(1);
+        default:
+        {
+            printf("Ha ocurrido un error.\n");
+        }
+
     }
 }
 
-void Modificar(&prof, &clase, &mat, &hor, op1)
+void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, op1)
 {
     switch(op1)
     {
@@ -137,53 +144,69 @@ void Modificar(&prof, &clase, &mat, &hor, op1)
         }
         break;
 
-        case 3:
+        case 3: //### Funciones del m贸dulo de Manuel ###
         {
 
         }
         break;
 
-        case 4:
+        case 4: //### Funciones del m贸dulo de Manuel ###
         {
 
         }
         break;
 
-        default: printf("Ha ocurrido un error.\n");
-                 exit(1);
+        default:
+        {
+            printf("Ha ocurrido un error.\n");
+        }
     }
 }
 
-void Listar(&prof, &clase, &mat, &hor, op1)
+void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, op1)
 {
     switch(op1)
     {
         case 1:
         {
+            printf("ID  |   NOMBRE  |   NICKNAME    |   PERFIL\n");
 
+            while(num_prof > 0)
+            {
+                printf("%d  |   %s  |   %s  |   %s\n", prof[num_prof].idUs, prof[num_prof].Nomb, prof[num_prof].NomU, prof[num_prof].Perf);
+                num_prof--;
+            }
         }
         break;
 
         case 2:
         {
+            printf("ID  |   NOMBRE  |   DIRECCI%cN   |   LOCALIDAD  |   CURSO   |   GRUPO\n", 162);
 
+            while(num_alum > 0)
+            {
+                printf("%d  |   %s  |   %s  |   %s  |   %s  |   %s\n", clase[num_alum].idUs, clase[num_alum].Nomb, clase[num_alum].Dir, clase[num_alum].Loc, clase[num_alum].Curso, clase[num_alum].Grup);
+                num_alum--;
+            }
         }
         break;
 
-        case 3:
+        case 3: //### Funciones del m贸dulo de Manuel ###
         {
 
         }
         break;
 
-        case 4:
+        case 4: //### Funciones del m贸dulo de Manuel ###
         {
 
         }
         break;
 
-        default: printf("Ha ocurrido un error.\n");
-                 exit(1);
+        default:
+        {
+            printf("Ha ocurrido un error.\n");
+        }
     }
 }
 
@@ -199,19 +222,14 @@ int Menu_Admin2()
 
     printf("Indique su opci%cn: ", 162);
     scanf("%d", &option);
+
+    return option;
 }
 
-void Menu_Operaciones(&prof, &clase, &mat, &hor, op1)
+void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, op1, salir)
 {
     int op2 = Menu_Admin2();
 
-    if(prof == NULL || clase == NULL || mat == NULL ||| hor == NULL)
-    {
-        printf("Ha ocurrido un error, se va a cerrar este men%c.\n", 163);
-        exit(1);
-    }
-    else
-    {
         switch(op2)
         {
             case 1: Dar_alta(prof, clase, mat, hor, op1);
@@ -222,38 +240,50 @@ void Menu_Operaciones(&prof, &clase, &mat, &hor, op1)
                     break;
             case 4: Listar(prof, clase, mat, hor, op1);
                     break;
-            default: printf("La opci髇 introducida es err髇ea, por favor introduzca nuevamente una opci髇.\n");
-                    // ### Funci髇 para volver ###
+            default:
+            {
+                printf("La opci%cn introducida es err贸nea, por favor introduzca nuevamente una opci%cn.\n", 162, 162);
+                salir = 1;
+            }
         }
-    }
 }
 
 int Menu_Admin1()
 {
     int op;
+    printf("Men%c: Administrador\n\n", 163);
 
     printf("\t1.-Usuarios.\n");
     printf("\t2.-Alumnos.\n");
     printf("\t3.-Materias.\n");
     printf("\t4.-Horarios.\n\n");
 
-    printf("Indique su opci%cn: ", 162);
+    printf("Indique una opci%cn: ", 162);
     scanf("%d", &op);
+
+    return op;
 }
 
-void Menu_admin(&prof, &clase, &mat, &hor)
+void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor) // ### Cuando se llame a esta funci贸n hay que meterla en un do-while ###
 {
     int op1 = Menu_Admin1();
-
+    int salida = 0; //###
     switch(op1)
     {
         case 2:
         {
-            Menu_Operaciones(prof, clase, mat, hor, op1);
-             /* ### Funci髇 para mostrar las matr韈ulas del alumno y poder realizar:
-                        1)cambios de matr韈ula a otras materias
-                        2)eliminar matr韈ula en alguna materia
-                        3) crear nuevas matr韈ulas.
+            int salir = 0;
+
+            do
+            {
+                Menu_Operaciones(prof, clase, mat, hor, op1, salir);
+
+            }while(salir != 0);
+
+            /* ### Funci贸n para mostrar las matr铆culas del alumno y poder realizar:
+                        1)cambios de matr铆cula a otras materias
+                        2)eliminar matr铆cula en alguna materia
+                        3)crear nuevas matr铆culas.
                 ###
             */
         }
@@ -261,13 +291,22 @@ void Menu_admin(&prof, &clase, &mat, &hor)
 
         case 1:
         case 3:
-        case 4: Menu_Operaciones(prof, clase, mat, hor, op1);
-                break;
+        case 4:
+        {
+            salir = 0;
+
+            do
+            {
+                Menu_Operaciones(prof, clase, mat, hor, op1, salir);
+
+            }while(salir != 0);
+        }
+        break;
+
         default:
         {
-            printf("La opci髇 introducida es err髇ea, por favor introduzca nuevamente una opci髇.\n");
-            // ### Funci髇 para volver ###
+            printf("La opci贸n introducida es err贸nea, por favor introduzca nuevamente una opci贸n.\n");
+            salida = 1;
         }
     }
 }
-
