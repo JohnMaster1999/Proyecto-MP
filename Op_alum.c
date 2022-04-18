@@ -1,14 +1,48 @@
 #include "Op_alum.h"
+#include "Op_Prof.h"
 #include "Alumnos.h"
 
-Alumnos *clase;
+/*Alumnos *clase;                                       En fichero Op_alum.h
 int num_alum, num_mat, num_grup, num_calif;
 
-clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));
+clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));*/
 
-/* OPERACIONES DEL PROFESOR CON RESPECTO A UN ALUMNO SELECCIONADO */
+int salir = 0;
 
-void ficha_alumnos(Alumnos *clase, int  a)
+void Selec_Alumno(Alumnos *clase, int *a)
+{
+    int i = 0;
+    char s[21];
+
+    printf("Indique el alumno que desea seleccionar: \n");
+    gets(s);
+
+    do
+    {
+        if(strcmp(s, clase[i].Nomb) == 0)
+        {
+            *a = i;       // Pasamos por referencia el valor de i a la variable a
+            i = num_alum; // Condición de salida
+        }
+        else i++;
+
+    }while(i < num_alum);
+}
+
+int Lista_alum(Alumnos *clase)
+{
+    int i = 0;
+
+    printf("ID  |   NOMBRE  |   DIRECCI%cN   |   LOCALIDAD  |   CURSO   |   GRUPO\n", 162);
+
+    while(i < num_alum)
+    {
+         printf("%d  |   %s  |   %s  |   %s  |   %s  |   %s\n", clase[i].idUs, clase[i].Nomb, clase[i].Dir, clase[i].Loc, clase[i].Curso, clase[i].Grup);
+         i++;
+    }
+}
+
+void ficha_alumnos(Alumnos *clase, int  a, int n)
 {
     printf("%d", clase[a].idUs);
     puts(clase[a].Nomb);
@@ -17,7 +51,12 @@ void ficha_alumnos(Alumnos *clase, int  a)
     puts(clase[a].Curso);
     puts(clase[a].Grup);
 
-    Modificar_ficha(a);
+    do
+    {
+        Modificar_ficha(a, n, &salir);
+
+    }while(salir == 0);
+
 }
 
 int Menu_Calif()
