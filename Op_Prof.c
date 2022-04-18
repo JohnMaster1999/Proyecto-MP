@@ -2,10 +2,10 @@
 #include "Op_Prof.h"
 #include "Op_alum.h"
 
-Alumnos *clase;
+/*Alumnos *clase;                                       En fichero Op_Prof.h
 int num_alum, num_mat, num_grup;
 
-clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));
+clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));*/
 
 
 // ### GRUPOS ###
@@ -58,49 +58,20 @@ int Opciones_Grupo()
     return opcion;
 }
 
-void Selec_Alumno(Alumnos *clase, int *a)
-{
-    int i = 0;
-    char s[21];
-
-    printf("Indique el alumno que desea seleccionar: \n");
-    gets(cad)
-
-    do
-    {
-        if(strcmp(s, clase[i].Nomb) == 0)
-        {
-            *a = i;       // Pasamos por referencia el valor de i a la variable a
-            i = num_alum; // Condición de salida
-        }
-        else i++;
-
-    }while(i < num_alum);
-}
-
-int Lista_alum(Alumnos *clase, int n)
-{
-    int i = 0, a;
-
-    while(i < num_alum)
-    {
-         printf("%d %s\n", i+1, clase[i].Nomb);
-         i++;
-    }
-
-    Selec_Alumno(clase, &a);
-    Menu_Alumno(clase, a, n);
-}
-
 void Menu_Grupo(Alumnos *clase, int n)
 {
     printf("GRUPO %s  MATERIA %s", clase[n].Grup, clase[n]->materias.mat)
 
-    int op = Opciones_Grupo();
+    int op = Opciones_Grupo(), a;
 
     switch(op)
     {
-        case 1: Lista_alum(clase, n);
+        case 1:
+        {
+            Lista_alum(clase); //, n);
+            Selec_Alumno(clase, &a);
+            Menu_Alumno(clase, a, n);
+        }
         break;
 
         case 2:
@@ -141,7 +112,7 @@ int Opciones()
     return option;
 }
 
-void Modificar_ficha(int index)
+void Modificar_ficha(int index, int n, int *salir)
 {
     int op = Opciones();
 
@@ -157,7 +128,11 @@ void Modificar_ficha(int index)
                 if(clase[index].idUs != NULL)
                     printf("Cambio realizado con %cxito.\n", 130);
                 else
+                {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
+                    *salir = 1;
+                    system("cls");
+                }
 
             }while(clase[index].idUs == NULL);
         }
@@ -168,12 +143,17 @@ void Modificar_ficha(int index)
             do
             {
                 printf("Introduzca el Nombre nuevo: ");
-                clase[index].Nomb = gets(); //Lee el nombre, REVISAR
+                gets(clase[index].Nomb); //Lee el nombre, REVISAR
 
                 if(clase[index].Nomb != NULL)
                     printf("Cambio realizado con %cxito.\n", 130);
                 else
+                {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
+                    *salir = 1;
+                    system("cls");
+                }
+
             }while(clase[index].Nomb == NULL);
         }
         break;
@@ -183,12 +163,17 @@ void Modificar_ficha(int index)
             do
             {
                 printf("Introduzca la nueva Direcci%cn: ", 162);
-                clase[index].Dir = gets();
+                gets(clase[index].Dir);
 
                 if(clase[index].Dir != NULL)
                     printf("Cambio realizado con %cxito.\n", 130);
                 else
+                {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
+                    *salir = 1;
+                    system("cls");
+                }
+
             }while(clase[index].Dir == NULL);
         }
         break;
@@ -198,12 +183,17 @@ void Modificar_ficha(int index)
             do
             {
                 printf("Introduzca la nueva Localidad: ");
-                clase[index].Loc = gets();
+                gets(clase[index].Loc);
 
                 if(clase[index].Loc != NULL)
                     printf("Cambio realizado con %cxito.\n", 130);
                 else
+                {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
+                    *salir = 1;
+                    system("cls");
+                }
+
             }while(clase[index].Loc == NULL);
 
         }
@@ -214,12 +204,17 @@ void Modificar_ficha(int index)
             do
             {
                 printf("Introduzca el Curso nuevo: ");
-                clase[index].Curso = gets(); //Lee el nombre, REVISAR
+                gets(clase[index].Curso);
 
                 if(clase[index].Curso != NULL)
                     printf("Cambio realizado con %cxito.\n", 130);
                 else
+                {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
+                    *salir = 1;
+                    system("cls");
+                }
+
             }while(clase[index].Curso == NULL);
         }
         break;
@@ -229,12 +224,17 @@ void Modificar_ficha(int index)
             do
             {
                 printf("Introduzca el Grupo nuevo: ");
-                clase[index].Grup = gets(); //Lee el nombre, REVISAR
+                gets(clase[index].Grup);
 
                 if(clase[index].Grup != NULL)
                     printf("Cambio realizado con %cxito.\n", 130);
                 else
+                {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
+                    *salir = 1;
+                    system("cls");
+                }
+
             }while(clase[index].Grup == NULL);
         }
         break;
@@ -247,9 +247,17 @@ void Modificar_ficha(int index)
             scanf("%c", &c);
 
             if( c == 's')
-                Menu_Alumno(clase, index);
+            {
+                system("cls");
+                Menu_Alumno(clase, index, n);
+                *salir = 1;
+            }
             else
-                Modificar_ficha(index);
+            {
+                system("cls");
+                Modificar_ficha(index, &salir);
+            }
+
         }
         break;
 
@@ -279,7 +287,7 @@ void Menu_Alumno(Alumnos *clase, int a, int n)
 
     switch(op)
     {
-        case 1: ficha_alumnos(clase, a);
+        case 1: ficha_alumnos(clase, a, n);
         break;
 
         case 2: Calificaciones_alum(clase, a, n);
