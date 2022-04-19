@@ -22,6 +22,8 @@ clase = (Fecha*)malloc(num_hor*sizeof(Fecha));*/
 
 int salir = 0;
 
+// ### OPERACIONES ###
+
 void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // TODAVÍA NO ESTÁ TERMINADO
 {
     switch(op1)
@@ -429,16 +431,16 @@ void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor,
                     break;
             case 5:
             {
-                *salir = 1;
                 printf("Volviendo al men%c anterior.\n", 163);
                 system("cls");
+                *salir = 1;
             }
             break;
             default:
             {
                 printf("La opci%cn introducida es errónea, por favor introduzca nuevamente una opci%cn.\n", 162, 162);
-                *salir = 1;
                 system("cls");
+                *salir = 1;
             }
         }
 }
@@ -459,7 +461,164 @@ int Menu_Admin1()
     return op;
 }
 
-void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor) // TODAVÍA NO ESTÁ TERMINADO ### Cuando se llame a esta función hay que meterla en un do-while ###
+// ### OPERACIONES DE MATRÍCULAS DE ALUMNO ###
+
+int Menu_Matriculas()
+{
+    int option;
+
+    printf("%cQu%c quieres hacer? \n\n", 168, 130);
+
+    printf("\t1.-Cambiar Matr%ccula.\n", 161);
+    printf("\t2.-Eliminar Matr%ccula.\n", 161);
+    printf("\t3.-Crear Matr%ccula.\n", 161);
+    printf("\t4.-Salir\n\n");
+
+    printf("Indique su opci%cn: ", 162);
+    scanf("%d", &option);
+
+    return option;
+}
+
+void Selec_Materia(Alumnos *clase, int *a, int *m)
+{
+    int i = 0, id;
+
+    printf("Indique el ID de la materia que desea seleccionar: \n");
+    scanf("%d", &id);
+
+    do
+    {
+        if(id == clase[a]->materias[i]->Calf_.Id_materia)
+        {
+            *m = i;       // Pasamos por referencia el valor de i a la variable a
+            i = num_mat; // Condición de salida
+        }
+        else i++;
+
+    }while(i < num_mat);
+}
+
+void Cambiar_Matricula(int a, int m)
+{
+    int op;
+
+    printf("%cQu%c quieres hacer? \n\n", 168, 130);
+
+    printf("\t1.Cambiar el ID de Alumno.\n");
+    printf("\t2.Cambiar el ID de Materia.\n\n");
+
+    printf("Introduzca su opci%cn: ", 162);
+    scanf("%d", &op);
+
+    switch(op)
+    {
+        case 1:
+        {
+            printf("Introduzca el nuevo ID de Alumno: ");
+            scanf("%d", clase[a].idUs);
+
+            printf("\nCambio realizado con %cxito.\n", 130);
+        }
+        break;
+
+        case 2:
+        {
+            printf("Introduzca el nuevo ID de Alumno: ");
+            scanf("%d", clase[a]->materias[m]->Calf_.Id_materia);
+
+            printf("\nCambio realizado con %cxito.\n", 130);
+        }
+
+        default:
+        {
+            printf("La opci%cn introducida no es correcta, vuelva a intentarlo.\n", 162);
+            system("cls");
+            Cambiar_Matricula(a, m);
+        }
+    }
+}
+
+void Borrar_Matricula(int a, int m) // TODAVÍA NO ESTÁ TERMINADO
+{
+}
+
+void Crear_Matricula(int a, int m))
+{
+    clase[a]->materias[m]->Calf_ = (Calif*)realloc(clase[a]->materias[m]->Calf_, (num_calif+1)*sizeof(Calif));
+
+    printf("Introduzca el ID de Alumno: ");
+    scanf("%d", clase[a].idUs);
+
+    if(clase[a].idUs != NULL)
+        printf("\nCambio realizado con %cxito.\n", 130);
+    else
+    {
+        printf("Ha ocurrido un error, vuelva a intentarlo.\n");
+        system("cls");
+        Crear_Matricula(a, m);
+    }
+
+    printf("Introduzca el nuevo ID de Alumno: ");
+    scanf("%d", clase[a]->materias[m]->Calf_.Id_materia);
+
+    if(clase[a]->materias[m]->Calf_.Id_materia != NULL)
+        printf("\nCambio realizado con %cxito.\n", 130);
+    else
+    {
+        printf("Ha ocurrido un error, vuelva a intentarlo.\n");
+        system("cls");
+        Crear_Matricula(a, m);
+    }
+}
+
+void Matriculas_alumno(Alumnos *clase)
+{
+    int a, m, i = 0, op = Menu_Matriculas();
+
+    Selec_Alumno(clase, &a);
+
+    printf("ID ALUMNO   ||  ID MATERIA\n");
+
+    while(i < num_mat)
+    {
+        printf("%d  ||  %d\n", clase[a].idUs, clase[a]->materias[i]->Calf_.Id_materia);
+        i++;
+    }
+
+    Selec_Materia(clase, &a, &m);
+
+    switch(op)
+    {
+        case 1: Cambiar_Matricula(a, m);
+        break;
+
+        case 2: Borrar_Matricula(a, m);
+        break;
+
+        case 3: Crear_Matricula(a, m);
+        break;
+
+        case 4:
+        {
+            system("cls");
+            Menu_admin(prof, clase, mat, hor);
+        }
+        break;
+
+        default:
+        {
+            printf("La opci%cn introducida no es correcta, vuelva a intentarlo.\n");
+            system("cls");
+            Matriculas_alumno(clase);
+        }
+
+    }
+}
+
+// ### MENÚ PRINCIPAL ###
+
+void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor) //### Cuando se llame a esta función hay que meterla en un do-while ###
 {
     int op1 = Menu_Admin1();
 
@@ -473,14 +632,7 @@ void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor) // T
 
             }while(salir == 0);
 
-            Menu_admin(prof, clase, mat, hor);
-
-            /* ### Función para mostrar las matrículas del alumno y poder realizar:
-                        1)cambios de matrícula a otras materias.
-                        2)eliminar matrícula en alguna materia.
-                        3)crear nuevas matrículas.
-               ###
-            */
+            Matriculas_alumno(clase);
         }
         break;
 
