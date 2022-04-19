@@ -2,111 +2,131 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menu_prin(Usuarios *user, int i)
+void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Fechas *fech, int i)
 {
     if(strcmp(user[i].Perf,"profesor")==0)
-        menu_prof(user[i].idUs);
+        menu_prof(user, alum, fech, i);
     if(strcmp(user[i].Perf,"administrador")==0)
-        menu_admin(user[i].idUs);
+        Menu_Admin(user, alum, fech, mat);
 }
 
-void menu_prof(Usuarios *user, int i)
+void menu_prof(Usuarios *user, Alumnos *alum, int i)
 {
     printf("BIENVENIDO %s\n\n", user[i].Nomb);
-    printf("Listado de grupos y materias\n------------------------------------");
-    printf("Escriba el nombre de uno de los siguientes\ngrupos para seleccionarlo:\n");
-    mostrar_grupos();
-    seleccionar_grupo();
-    menu_grupo();
+    printf("Listado de grupos y materias\n______________________________________________________");
+    Lista_Grupos(alum);
+    Selec_Grupo(alum, i);
+    Menu_Grupo(alum, i);
 }
 
-void menu_grupo(Usuarios *, )
+int menu_grupo(Alumnos *alum, int i)
 {
-    int n, n2;
-    printf("\tMenu: Grupo\n%s\n---------------------------\n", grupo[k].Nom);
-    printf("Selecciona una opcion:\n\t1.Lista de alumnos\n\t2.Cambiar de grupo\n");
-    scanf("%d", &n);
-    switch(n){
+    int n, op;
+
+    op = Opciones_Grupo();
+
+    switch(op)
+    {
         case 1:
-            printf("Lista de alumnos:\n");
-            lista_alumnos();
-            selec_alumn();
-        case 2:
-            printf("¿Seguro que deseas volver?\n\t1.Si\n\t2.No");
-            scanf("%d", n2);
-            switch(n2){
-                case 1:
-                    menu_prin();
-                case 2:
-                    menu_grupo();
-                default:
-		        {
-		            printf("La opción introducida es errónea, por favor introduzca nuevamente una opción.\n");
-		            // ### Función para volver ###
-		        }
-		default:
         {
-            printf("La opción introducida es errónea, por favor introduzca nuevamente una opción.\n");
-            // ### Función para volver ###
+            Lista_alum(alum);
+            Selec_Alumno(alum, &n);
+            menu_alum(alum, n, i);
         }
-            }
+        break;
+
+        case 2:
+        {
+            int c;
+
+            printf("%cEst%c seguro que desea cambiar de grupo?: (s/n)\n", 168, 160);
+            scanf("%c", &c);
+
+            if( c == 's')
+                Lista_Grupos(alum);
+            else
+                Menu_Grupo(alum, i);
+        }
+        break;
     }
 }
 
-void menu_alum(Alumnos *alum)
+void menu_alum(Alumnos *alum, int n, int i)
 {
     int n;
-    printf("\tMenu: Alumno\n%s\n---------------------------\n", alum[i].Nomb);
+    printf("\tMenu: Alumno\n%s\n______________________________________________________\n", alum[i].Nomb);
     printf("\n\t1.Ficha del alumno\n\t2.Calificaciones del alumno\n\t3.Volver\n");
     scanf("%d", &n);
     switch(n){
         case 1:
-            ficha_alumnos();
+            ficha_alumnos(alum, n, i);
+            break;
         case 2:
-            Calificaciones_alum();
+            Calificaciones_alum(alum, n, i);
+            break;
         case 3:
-            Volver_atras();
-        default:
-        {
-            printf("La opción introducida es errónea, por favor introduzca nuevamente una opción.\n");
-            // ### Función para volver ###
+            {
+            int c;
+
+            printf("%cEst%c seguro que desea volver atr%cs?: (s/n)\n", 168, 160, 160);
+            scanf("%c", &c);
+
+            if( c == 's')
+                menu_grupo(alum, n);
+            else
+                menu_alum(alum, n, i);
         }
+        break;
     }
 }
 
 
-void Menu_admin(&prof, &clase, &mat, &hor)
+void Menu_admin(Usuarios *user, Alumnos *alum, Materias *mat, Fechas *fech)
 {
 	int op;
-	
-    printf("\tMenu: Administrador\n---------------------------\n\n");
-	printf("\t1.-Usuarios.\n");
+
+    printf("\tMenu: Administrador\n______________________________________________________\n\n");
+    printf("\t1.-Usuarios.\n");
     printf("\t2.-Alumnos.\n");
     printf("\t3.-Materias.\n");
     printf("\t4.-Horarios.\n\n");
 
     printf("Indique su opci%cn: ", 162);
     scanf("%d", &op);
-    
+
     switch(op)
     {
-    	
-    	case 1:
         case 2:
         {
-            Menu_Operaciones(prof, clase, mat, hor, op);
-            Matrículas(prof, clase, mat, hor, op)
+            do
+            {
+                Menu_Operaciones(user, alum, mat, fech, op, &salir);
+
+            }while(salir == 0);
+
+            Matriculas_alumno(alum);
         }
         break;
 
-        
+        case 1:
         case 3:
-        case 4: Menu_Operaciones(prof, clase, mat, hor, op);
-                break;
+        case 4:
+        {
+            do
+            {
+                Menu_Operaciones(user, alum, mat, fech, op, &salir);
+
+            }while(salir == 0);
+
+            Menu_admin(user, alum, mat, fech);
+        }
+        break;
+
         default:
         {
-            printf("La opción introducida es errónea, por favor introduzca nuevamente una opción.\n");
-            // ### Función para volver ###
+            printf("La opci%cn introducida es err%cnea, por favor introduzca nuevamente una opci%cn.\n", 162, 162, 162);
+            salir = 1;
+            system("cls");
         }
     }
 }
