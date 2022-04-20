@@ -8,12 +8,12 @@
 
 int inicio(Usuarios *user, int n_usuarios)
 {
-    char usu[];
-    char pass[];
+    char *usu;
+    char *pass;
     int id=0, i=0;
-    bool n=0;
+    int n=0;
 
-    printf("            Inicio de Sesion\n-----------------------------------------\n\nUsuario:")
+    printf("            Inicio de Sesion\n-----------------------------------------\n\nUsuario:");
 
     usu = (char*)malloc(6*sizeof(char));
     pass = (char*)malloc(9*sizeof(char));
@@ -21,11 +21,13 @@ int inicio(Usuarios *user, int n_usuarios)
     do{
     fgets(usu, 6, stdin);
     fflush(stdin);
-    usu[6]='\0'
+    usu[6]='\0';
         do{
             if(strcmp(usu, user[i].NomU)==0)
+            {
                 printf("    Usuario encontrado, introduzca la contraseña.\n");
                 n=1;
+            }
             else
                 i++;
         }while(i < n_usuarios || n==0);
@@ -37,7 +39,7 @@ int inicio(Usuarios *user, int n_usuarios)
     
     fgets(pass, 9, stdin);
     fflush(stdin);
-    usu[9]='\0'
+    usu[9]='\0';
     
     while(n==1)
     {
@@ -45,11 +47,12 @@ int inicio(Usuarios *user, int n_usuarios)
         
         fgets(pass, 9, stdin);
         fflush(stdin);
-        usu[9]='\0'
+        usu[9]='\0';
             
-        if(strcmp(pass, user[i].pass)==0)
+        if(strcmp(pass, user[i].pass)==0){
             printf("    Contraseña correcta.\n\n\nIniciando sesión...");
             n=0;
+            }
         else
             printf("    Contraseña incorrecta, vuelve a introducirla.");
     }
