@@ -47,11 +47,11 @@ int inicio(Usuarios *user, int n_usuarios)
 
         if(strcmp(pass, user[i].pass)==0 && strlen(pass)==strlen(user[i].pass)) //Comprueba si la contraseña del usuario actual es correcta.
             {
-            printf("\t\tContraseña correcta.\n\n\nIniciando sesión..."); //Si es correcta inicia sesión.
+            printf("\t\tContrase%ca correcta.\n\n\nIniciando sesi%cn...", 164, 162); //Si es correcta inicia sesión.
             n=0;
             }
         else
-            printf("\t\tContraseña incorrecta, vuelve a introducirla."); //Si es incorrecta vuelve a pedir la contraseña.
+            printf("\t\tContrase%ca incorrecta, vuelve a introducirla.", 164); //Si es incorrecta vuelve a pedir la contraseña.
     }
     return i; //Devuelve la posición del usuario en el vector de usuarios.
 }
