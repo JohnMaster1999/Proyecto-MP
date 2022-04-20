@@ -122,9 +122,26 @@ void carga_hor(Horarios* h, int* max);
 void carga_al(Alumnos* al, int* max);
 
 
+void guarda_usu(Usuarios* usu, int* max);
+
+void guarda_mat(Materias* mate, int* max);
+
+void guarda_hor(Horarios* h, int* max);
+
+void guarda_al(Alumnos* al, int* max);
+
 void Carga_datos (Alumnos* al, Materias* mate, Horarios* hor, Usuarios* usu, int* alM, int* matM, int* horM, int* usM)
 {
 	carga_al(al, alM);
 	carga_usu(usu, usM);
 	carga_mat(mate, matM);
+	carga_hor(hor, horM);
+}
+
+void Guarda_datos (Alumnos* al, Materias* mate, Horarios* hor, Usuarios* usu, int* alM, int* matM, int* horM, int* usM)
+{
+	guarda_al(al, alM);
+	guarda_usu(usu, usM);
+	guarda_mat(mate, matM);
+	guarda_hor(hor, horM);
 }
