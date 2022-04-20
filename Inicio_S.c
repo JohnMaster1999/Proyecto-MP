@@ -23,7 +23,7 @@ int inicio(Usuarios *user, int n_usuarios)
     fflush(stdin);
     usu[6]='\0';
         do{
-            if(strcmp(usu, user[i].NomU)==0)
+            if(strcmp(usu, user[i].NomU)==0 && strlen(usu)==strlen(user[i].NomU))
             {
                 printf("    Usuario encontrado, introduzca la contraseña.\n");
                 n=1;
@@ -49,7 +49,7 @@ int inicio(Usuarios *user, int n_usuarios)
         fflush(stdin);
         usu[9]='\0';
             
-        if(strcmp(pass, user[i].pass)==0){
+        if(strcmp(pass, user[i].pass)==0 && strlen(pass)==strlen(user[i].pass)){
             printf("    Contraseña correcta.\n\n\nIniciando sesión...");
             n=0;
             }
