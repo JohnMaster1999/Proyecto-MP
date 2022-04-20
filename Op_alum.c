@@ -2,13 +2,6 @@
 #include "Op_Prof.h"
 #include "Alumnos.h"
 
-/*Alumnos *clase;                                       En fichero Op_alum.h
-int num_alum, num_mat, num_grup, num_calif;
-
-clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));*/
-
-int salir = 0;
-
 void Selec_Alumno(Alumnos *clase, int *a)
 {
     int i = 0;
@@ -78,7 +71,7 @@ int Lista_Cal(Alumnos *clase, int  a, int n)
 {
     int i = 0, cal;
 
-    printf("%s: \n", clase[a].Materias[n].Mat);
+    printf("%s: \n", clase[a].Materias[n].mat);
 
     do
     {
@@ -95,9 +88,9 @@ int Lista_Cal(Alumnos *clase, int  a, int n)
 void Modificar_Calif(Alumnos *clase, int  a, int n, int cal)
 {
     printf("Introduzca la nueva calificaci%cn: \n");
-    scanf("%d", clase[a].Materias[n].Calf_[cal].Valor_calif);
+    scanf("%d", clase[a].Materias[n].Calf[cal].Valor_calif);
 
-    if(clase[a].Materias[n].Calf_[cal].Valor_calif == NULL)
+    if(clase[a].Materias[n].Calf[cal].Valor_calif == NULL)
         printf("Calificaci%cn modificada con %cxito.\n", 162, 130);
     else
     {
@@ -108,18 +101,18 @@ void Modificar_Calif(Alumnos *clase, int  a, int n, int cal)
 
 void Borrar_Calif(Alumnos *clase, int  a, int n, int cal)
 {
-    clase[a].Materias[n].Calf_[cal].Valor_calif = 0;
-    clase[a].Materias[n].Calf_[cal].Valor_calif = (Calif*)realloc(clase[a].Materias[n].Calf_[cal].Valor_calif, (num_calif-1)*sizeof(Calif));
+    clase[a].Materias[n].Calf[cal].Valor_calif = 0;
+    clase[a].Materias[n].Calf[cal].Valor_calif = (Calif*)realloc(clase[a].Materias[n].Calf[cal].Valor_calif, (num_calif-1)*sizeof(Calif));
 
     printf("Calificaci%cn borrada con %cxito.\n", 162, 130);
 }
 
 void Meter_Calif(Alumnos *clase, int  a, int n, int cal)
 {
-    clase[a].Materias[n].Calf_[cal].Valor_calif = (Calif*)realloc(clase[a].Materias[n].Calf_[cal].Valor_calif, (num_calif+1)*sizeof(Calif));
+    clase[a].Materias[n].Calf[cal].Valor_calif = (Calif*)realloc(clase[a].Materias[n].Calf[cal].Valor_calif, (num_calif+1)*sizeof(Calif));
 
     printf("Introduzca la nueva calificaci%cn: \n");
-    scanf("%d", clase[a].Materias[n].Calf_[num_calif].Valor_calif);
+    scanf("%d", clase[a].Materias[n].Calf[num_calif].Valor_calif);
 
     printf("Calificaci%cn a%cadida con %cxito.\n", 162, 164, 130);
 }
