@@ -39,7 +39,7 @@ void Lista_Grupos(Alumnos *clase)
     Menu_Grupo(clase, n);
 }
 
-int Opciones_Grupo()
+int Opciones_Grupo() // Esto va en Menus.c
 {
     int opcion;
 
@@ -52,7 +52,7 @@ int Opciones_Grupo()
     return opcion;
 }
 
-void Menu_Grupo(Alumnos *clase, int n)
+void Menu_Grupo(Alumnos *clase, int n) // Esto va en Menus.c
 {
     printf("GRUPO %s  MATERIA %s", clase[n].Grup, clase[n].Materias.Mat)
 
@@ -258,7 +258,7 @@ void Modificar_ficha(int index, int n, int *salir)
     }
 }
 
-int Opciones_Alumno()
+int Opciones_Alumno() // Esto va en Menus.c
 {
     int opcion;
 
@@ -272,7 +272,7 @@ int Opciones_Alumno()
     return opcion;
 }
 
-void Menu_Alumno(Alumnos *clase, int a, int n)
+void Menu_Alumno(Alumnos *clase, int a, int n) // Esto va en Menus.c
 {
     printf("ALUMNO: %s\n\n", clase[a].Nomb);
 
