@@ -3,7 +3,7 @@
 
 typedef struct Fecha
 {
-    int dia, mes, año;
+    int dia, mes, anio;
 }Fecha;
 
 
