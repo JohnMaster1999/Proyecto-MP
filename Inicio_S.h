@@ -3,9 +3,9 @@
 
 #include "Usuarios.h"
 
-//Cabecera: bool exist(Usuarios*).
-//Precondición: recibe la estructura usuarios.
-//Postcondición: devuelve el ID del usuario.
+//Cabecera: int inicio(Usuarios*, int).
+//Precondición: recibe la estructura usuarios y en número de usuarios.
+//Postcondición: devuelve la posición en el vector de usuarios.
 int inicio(Usuarios*, int);
 
 #endif // INICIO_S
