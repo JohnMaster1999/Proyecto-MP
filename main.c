@@ -7,15 +7,20 @@
 int main()
 {
     printf("______________________________________________________\n\tIniciando el programa...\n______________________________________________________");
+    
+    Alumnos* al;
+    Materias* mate;
+    Horarios* hor;
+    Usuarios* usu;
+    int alM, matM, horM, usM, n;
 
+    Carga_datos(al, mate, hor, usu, &alM, &matM, &horM, &usM);
 
-    Carga_datos();
+    n = inicio(usu, usM);
 
-    inicio();
+    menu_prin(usu, al, mate, hor, n);
 
-    menu_prin();
-
-    Guarda_datos();
+    Guarda_datos(al, mate, hor, usu, &alM, &matM, &horM, &usM);
 
     return 0;
 }
