@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Horarios *fech, int i)
+void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Horarios *fech, int i, int* alM, int* matM, int* horM, int* usM)
 {
     if(strcmp(user[i].Perf,"profesor")==0)
         menu_prof(user, alum, fech, i);
@@ -121,7 +121,7 @@ void Menu_admin(Usuarios *user, Alumnos *alum, Horarios *fech, Materias *mat, in
 
             }while(salir == 0);
 
-            Menu_admin(user, alum, mat, fech);
+            Menu_admin(user, alum, fech, mat, &alM, &matM, &horM, &usM, &salir);
         }
         break;
 
