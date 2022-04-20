@@ -18,8 +18,6 @@ void menu_prof(Usuarios *user, Alumnos *alum, int i)
     printf("BIENVENIDO %s\n\n", user[i].Nomb);
     printf("Listado de grupos y materias\n______________________________________________________");
     Lista_Grupos(alum);
-    Selec_Grupo(alum, i);
-    Menu_Grupo(alum, i);
 }
 
 int menu_grupo(Alumnos *alum, int i)
