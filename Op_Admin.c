@@ -326,9 +326,10 @@ void Modificar_usuario(int p, int *salir)
     }
 }
 
-void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1) // Faltan funciones Horarios
+void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1)
 {
     int p, a, m, h;
+
     switch(op1)
     {
         case 1:
@@ -402,7 +403,7 @@ void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op
     }
 }
 
-int Menu_Admin2()
+int Menu_Admin2() // Esto va en Menus.c
 {
     int option;
 
@@ -420,7 +421,7 @@ int Menu_Admin2()
     return option;
 }
 
-void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *salir, int *num_alum, int *num_mat, int *num_prof, int *num_hor)
+void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *salir, int *num_alum, int *num_mat, int *num_prof, int *num_hor) // Esto va en Menus.c
 {
     int op2 = Menu_Admin2();
 
@@ -632,7 +633,7 @@ void Matriculas_alumno(Alumnos *clase)
 
 // ### MENÚ PRINCIPAL ###
 
-int Menu_Admin1()
+int Menu_Admin1() // Esto va en Menus.c
 {
     int op;
     printf("Men%c: Administrador\n\n", 163);
@@ -648,7 +649,7 @@ int Menu_Admin1()
     return op;
 }
 
-void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  int *num_alum, int *num_mat, int *num_prof, int *num_hor, int salir)
+void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  int *num_alum, int *num_mat, int *num_prof, int *num_hor, int salir) // Esto va en Menus.c
 {
     int op1 = Menu_Admin1();
 
