@@ -15,9 +15,11 @@ void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Horarios *fech, int
 
 void menu_prof(Usuarios *user, Alumnos *alum, int i)
 {
+    int j;
     printf("BIENVENIDO %s\n\n", user[i].Nomb);
     printf("Listado de grupos y materias\n______________________________________________________");
-    Lista_Grupos(alum);
+    j = Lista_Grupos(alum);
+    menu_grupo(alum, j);
 }
 
 int menu_grupo(Alumnos *alum, int i)
