@@ -10,7 +10,7 @@ int num_prof, num_alum, num_mat, num_hor; //Variables que almacenan el tamaño d
 prof = (Usuarios*)malloc(num_prof*sizeof(Usuarios));
 clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));
 mat = (Materias*)malloc(num_mat*sizeof(Materias));
-clase = (Fecha*)malloc(num_hor*sizeof(Fecha));
+hor = (Fecha*)malloc(num_hor*sizeof(Fecha));
 
 //Precondición: Recibe como parámetros los vectores de estructuras de los módulos de estructuras.
 //Postcondición: Realiza la operación que se indique (Dar de alta, Dar de baja, Modificar, Listar) con las estructuras que se le pasan.
