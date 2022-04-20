@@ -57,7 +57,7 @@ int menu_grupo(Alumnos *alum, int i)
 void menu_alum(Alumnos *alum, int n, int i)
 {
     int p;
-    printf("\tMenu: Alumno\n%s\n______________________________________________________\n", alum[i].Nomb);
+    printf("\tMenu: Alumno\n%s\n______________________________________________________\n", alum[n].Nomb);
     printf("\n\t1.Ficha del alumno\n\t2.Calificaciones del alumno\n\t3.Volver\n");
     scanf("%d", &p);
     switch(p){
@@ -75,7 +75,7 @@ void menu_alum(Alumnos *alum, int n, int i)
             scanf("%c", &c);
 
             if( c == 's')
-                menu_grupo(alum, n);
+                menu_grupo(alum, i);
             else
                 menu_alum(alum, n, i);
         }
