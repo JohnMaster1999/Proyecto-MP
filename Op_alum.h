@@ -1,11 +1,6 @@
 #ifndef OP_ALUMNO_
 #define OP_ALUMNO_
 
-Alumnos *clase;
-int num_alum, num_mat, num_grup, num_calif, salir = 0;
-
-clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));
-
 //Precondición: Recibe como parámetros la estructura de alumnos y una variable por referencia.
 //Postcondición: Se modifica el valor de la variable en un paso por referencia.
 void Selec_Alumno(Alumnos *clase, int *a);
