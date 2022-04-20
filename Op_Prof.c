@@ -2,12 +2,6 @@
 #include "Op_Prof.h"
 #include "Op_alum.h"
 
-/*Alumnos *clase;                                       En fichero Op_Prof.h
-int num_alum, num_mat, num_grup;
-
-clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));*/
-
-
 // ### GRUPOS ###
 
 void Selec_Grupo(Alumnos *clase, int *n)
@@ -37,7 +31,7 @@ void Lista_Grupos(Alumnos *clase)
 
     while(i < num_grup)
     {
-        printf("GRUPO %s  MATERIA %s", clase[i].Grup, clase[i]->Materias[i].mat);
+        printf("GRUPO %s  MATERIA %s", clase[i].Grup, clase[i].Materias[i].Mat);
         i++;
     }
 
@@ -60,7 +54,7 @@ int Opciones_Grupo()
 
 void Menu_Grupo(Alumnos *clase, int n)
 {
-    printf("GRUPO %s  MATERIA %s", clase[n].Grup, clase[n]->materias.mat)
+    printf("GRUPO %s  MATERIA %s", clase[n].Grup, clase[n].Materias.Mat)
 
     int op = Opciones_Grupo(), a;
 
@@ -89,7 +83,6 @@ void Menu_Grupo(Alumnos *clase, int n)
         break;
     }
 }
-
 
 // ### ALUMNOS ###
 
@@ -131,7 +124,7 @@ void Modificar_ficha(int index, int n, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(clase[index].idUs == NULL);
@@ -151,7 +144,7 @@ void Modificar_ficha(int index, int n, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(clase[index].Nomb == NULL);
@@ -171,7 +164,7 @@ void Modificar_ficha(int index, int n, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(clase[index].Dir == NULL);
@@ -191,7 +184,7 @@ void Modificar_ficha(int index, int n, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(clase[index].Loc == NULL);
@@ -212,7 +205,7 @@ void Modificar_ficha(int index, int n, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(clase[index].Curso == NULL);
@@ -232,7 +225,7 @@ void Modificar_ficha(int index, int n, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(clase[index].Grup == NULL);
@@ -248,13 +241,13 @@ void Modificar_ficha(int index, int n, int *salir)
 
             if( c == 's')
             {
-                system("cls");
+                //system("cls"); Para usuarios de Windows
                 Menu_Alumno(clase, index, n);
                 *salir = 1;
             }
             else
             {
-                system("cls");
+                //system("cls"); Para usuarios de Windows
                 Modificar_ficha(index, &salir);
             }
 
