@@ -1,16 +1,16 @@
 #include "Usuarios.h"
 #include "Alumnos.h"
 #include "Materias.h"
-#include "Fecha.h"
+#include "Horarios.h"
 #include "Op_Admin.h"
 #include "Op_Prof.h"
 #include "Op_alum.h"
 #include "Op_mat.h"
-#include "Op_fecha.h"
+#include "Op_horario.h"
 
 // ### OPERACIONES ###
 
-void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // Faltan funciones Horarios
+void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *num_alum, int *num_mat, int *num_prof, int *num_hor) // Faltan funciones Horarios
 {
     switch(op1)
     {
@@ -30,6 +30,8 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
             gets(prof[num_prof].NomU);
             printf("Introduzca una Contrase%ca: ", 164);
             gets(prof[num_prof].pass);
+
+            *num_prof++;
         }
         break;
 
@@ -42,15 +44,17 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
             printf("Introduzca el ID: ");
             scanf("%d", clase[num_alum].idUs);
             printf("Introduzca el Nombre: ");
-            clase[num_alum].Nomb = gets();
+            gets(clase[num_alum].Nomb);
             printf("Introduzca la Direcci%cn: ", 162);
-            clase[num_alum].Dir = gets();
+            gets(clase[num_alum].Dir);
             printf("Introduzca la Localidad: ");
-            clase[num_alum].Loc = gets();
+            gets(clase[num_alum].Loc);
             printf("Introduzca el Curso: ");
-            clase[num_alum].Curso = gets();
+            gets(clase[num_alum].Curso);
             printf("Introduzca el Grupo: ");
-            clase[num_alum].Grup = gets();
+            gets(clase[num_alum].Grup);
+
+            *num_alum++;
         }
         break;
 
@@ -61,10 +65,7 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
         }
         break;
 
-        case 4: //### Funciones del módulo de Manuel ###
-        {
-
-        }
+        case 4: horarios_darDeAlta(hor);
         break;
 
         default:
@@ -97,7 +98,7 @@ void Selec_Usuario(Usuarios *prof, int *p)
     }while(i < num_prof);
 }
 
-void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // Faltan funciones Horarios
+void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *num_alum, int *num_mat, int *num_prof, int *num_hor) // Faltan funciones Horarios
 {
     int p, a, m, h, i;
 
@@ -110,12 +111,12 @@ void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
             for(i = p; i < num_prof; i++)
                 *(prof+i) = *(prof+i+1);
 
-            num_prof--;
+            *num_prof--;
 
             prof = (Usuarios*)realloc(prof,num_prof*sizeof(Usuarios));
 
 
-            if(prof != NULL && num_prof > 0)
+            if(prof != NULL)
             {
                 printf("Proceso terminado con %cxito.\n", 130);
             }
@@ -135,7 +136,7 @@ void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
             for(i = a; i < num_alum; i++)
                 *(clase+i) = *(clase+i+1);
 
-            num_alum--;
+            *num_alum--;
 
             clase = (Alumnos*)realloc(clase,num_alum*sizeof(Alumnos));
 
@@ -156,10 +157,7 @@ void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
         case 3: materias_darDeBaja(m);
         break;
 
-        case 4: //### Funciones del módulo de Manuel ###
-        {
-
-        }
+        case 4: horarios_darDeBaja(h);
         break;
 
         default:
@@ -328,7 +326,7 @@ void Modificar_usuario(int p, int *salir)
     }
 }
 
-void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // Faltan funciones Horarios
+void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1) // Faltan funciones Horarios
 {
     int p, a, m, h;
     switch(op1)
@@ -356,10 +354,7 @@ void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int o
         case 3: materias_modificar(m, mat);
         break;
 
-        case 4: //### Funciones del módulo de Manuel ###
-        {
-
-        }
+        case 4: horarios_modificar(h, hor);
         break;
 
         default:
@@ -371,9 +366,9 @@ void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int o
     }
 }
 
-void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, int op1) // Faltan funciones Horarios
+void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1) // Faltan funciones Horarios
 {
-    int i = 0;
+    int i = 0, dia, hora;
 
     switch(op1)
     {
@@ -395,10 +390,7 @@ void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, int op1) 
         case 3: materias_listar(n, Id_mat);
         break;
 
-        case 4: //### Funciones del módulo de Manuel ###
-        {
-
-        }
+        case 4: horarios_listar(prof[i].idUs, hora, dia, clase[i].Grup, hor[i].Id_materia, 1);
         break;
 
         default:
@@ -428,15 +420,15 @@ int Menu_Admin2()
     return option;
 }
 
-void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, int op1, int *salir)
+void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *salir, int *num_alum, int *num_mat, int *num_prof, int *num_hor)
 {
     int op2 = Menu_Admin2();
 
         switch(op2)
         {
-            case 1: Dar_alta(prof, clase, mat, hor, op1);
+            case 1: Dar_alta(prof, clase, mat, hor, op1, &num_alum, &num_mat, &num_prof, &num_hor);
                     break;
-            case 2: Dar_baja(prof, clase, mat, hor, op1);
+            case 2: Dar_baja(prof, clase, mat, hor, op1, &num_alum, &num_mat, &num_prof, &num_hor);
                     break;
             case 3: Modificar(prof, clase, mat, hor, op1);
                     break;
@@ -552,7 +544,7 @@ void Cambiar_Matricula(int a, int m)
     }
 }
 
-void Borrar_Matricula(Alumnos *clase, int a, int m)
+void Borrar_Matricula(Alumnos *clase, int a, int m, int *num_calif)
 {
     int i;
 
@@ -565,9 +557,9 @@ void Borrar_Matricula(Alumnos *clase, int a, int m)
 
     num_mat--;
 
-    clase[a].materias[m].Calf = (Alumnos*)realloc(clase[a].materias[m].Calf, num_mat*sizeof(Alumnos));
+    clase[a].materias[m].Calf = (Alumnos*)realloc(clase[a].materias[m].Calf, num_calif-1*sizeof(Alumnos));
 
-    if(clase[a].materias[m].Calf != NULL)
+    if(clase[a].materias[m].Calf_ != NULL)
     {
         printf("Proceso terminado con %cxito.\n", 130);
     }
@@ -577,6 +569,8 @@ void Borrar_Matricula(Alumnos *clase, int a, int m)
         //system("cls"); Para usuarios de Windows
         Matriculas_alumno(clase);
     }
+
+    *num_calif--;
 }
 
 void Crear_Matricula(int a, int m))
@@ -654,7 +648,7 @@ void Matriculas_alumno(Alumnos *clase)
 
 // ### MENÚ PRINCIPAL ###
 
-void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor) //### Cuando se llame a esta función hay que meterla en un do-while ###
+void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  int *num_alum, int *num_mat, int *num_prof, int *num_hor)
 {
     int op1 = Menu_Admin1();
 
@@ -664,7 +658,7 @@ void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor) //##
         {
             do
             {
-                Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
+                Menu_Operaciones(prof, clase, mat, hor, op1, &salir,  &num_alum, &num_mat, &num_prof, &num_hor);
 
             }while(salir == 0);
 
