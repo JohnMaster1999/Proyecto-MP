@@ -26,7 +26,11 @@ int menu_grupo(Alumnos *alum, int i)
 {
     int n, op;
 
-    op = Opciones_Grupo();
+    printf("\t1.Lista de Alumnos\n");
+    printf("\t2.Cambiar de grupo\n\n");
+
+    printf("Indique una opci%cn: ", 162);
+    scanf("%d", &op);
 
     switch(op)
     {
