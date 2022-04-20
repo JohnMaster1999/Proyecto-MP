@@ -5,9 +5,9 @@
 
 void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Horarios *fech, int i, int* alM, int* matM, int* horM, int* usM, int* salir)
 {
-    if(strcmp(user[i].Perf,"profesor")==0)
+    if(strcmp(user[i].Perf,"profesor")==0)//Si nuestro usuario es profesor abre el menu de profesor.
         menu_prof(user, alum, fech, i);
-    if(strcmp(user[i].Perf,"administrador")==0)
+    if(strcmp(user[i].Perf,"administrador")==0)//Si nuestro usuario es admin abre el menú de administrador.
         do{
 	    Menu_admin(user, alum, fech, mat, &alM, &matM, &horM, &usM, &salir);
 	}while(salir == 1);
@@ -18,8 +18,8 @@ void menu_prof(Usuarios *user, Alumnos *alum, int i)
     int j;
     printf("BIENVENIDO %s\n\n", user[i].Nomb);
     printf("Listado de grupos y materias\n______________________________________________________");
-    j = Lista_Grupos(alum);
-    menu_grupo(alum, j);
+    j = Lista_Grupos(alum); //Devuelve la posición en el vector de alumnos.
+    menu_grupo(alum, j); //Abre el menú de grupos.
 }
 
 int menu_grupo(Alumnos *alum, int i)
@@ -34,7 +34,7 @@ int menu_grupo(Alumnos *alum, int i)
 
     switch(op)
     {
-        case 1:
+        case 1:           //Muestra la lista de los alumnos, selecciona uno y se abre el menú de alumnos.
         {
             Lista_alum(alum);
             Selec_Alumno(alum, &n);
@@ -42,7 +42,7 @@ int menu_grupo(Alumnos *alum, int i)
         }
         break;
 
-        case 2:
+        case 2:           //Cambia de grupo
         {
             int c;
 
@@ -66,10 +66,10 @@ void menu_alum(Alumnos *alum, int n, int i)
     scanf("%d", &p);
     switch(p){
         case 1:
-            ficha_alumnos(alum, n, i);
+            ficha_alumnos(alum, n, i);  //Muestra los datos del alumno
             break;
         case 2:
-            Calificaciones_alum(alum, n, i);
+            Calificaciones_alum(alum, n, i); //Muestra las calificaciones del alumno
             break;
         case 3:
             {
@@ -79,9 +79,9 @@ void menu_alum(Alumnos *alum, int n, int i)
             scanf("%c", &c);
 
             if( c == 's')
-                menu_grupo(alum, i);
+                menu_grupo(alum, i);  //Vuelve al menú de grupo.
             else
-                menu_alum(alum, n, i);
+                menu_alum(alum, n, i); //Se reinicia el menu de alumno.
         }
         break;
     }
@@ -103,7 +103,7 @@ void Menu_admin(Usuarios *user, Alumnos *alum, Horarios *fech, Materias *mat, in
 
     switch(op)
     {
-        case 2:
+        case 2: //Entra en el menú de edición de alumnos del administrador.
         {
             do
             {
@@ -117,7 +117,7 @@ void Menu_admin(Usuarios *user, Alumnos *alum, Horarios *fech, Materias *mat, in
 
         case 1:
         case 3:
-        case 4:
+        case 4: //Entra en el menú de edición de horarios del administrador.
         {
             do
             {
