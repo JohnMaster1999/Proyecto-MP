@@ -49,7 +49,6 @@ void ficha_alumnos(Alumnos *clase, int  a, int n)
         Modificar_ficha(a, n, &salir);
 
     }while(salir == 0);
-
 }
 
 int Menu_Calif()
