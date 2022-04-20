@@ -1,10 +1,5 @@
 #include "Menus.h"
-#include "Op_Admin.h"
-#include "Op_Prof.h"
-#include "Op_alum.h"
-#include "Op_mat.h"
-#include "Op_usuario.h"
-#include "Inicio_S.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
