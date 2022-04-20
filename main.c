@@ -18,7 +18,7 @@ int main()
 
     n = inicio(usu, usM);
 
-    menu_prin(usu, al, mate, hor, n);
+    menu_prin(usu, al, mate, hor, n, &alM, &matM, &horM, &usM);
 
     Guarda_datos(al, mate, hor, usu, &alM, &matM, &horM, &usM);
 
