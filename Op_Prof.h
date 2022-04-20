@@ -1,11 +1,6 @@
 #ifndef OP_PROFESOR_
 #define OP_PROFESOR_
 
-Alumnos *clase;
-int num_alum, num_mat, num_grup;
-
-clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));
-
 // Precondición: Recibe un entero que sirve como índice para un alumno seleccionado.
 // Postcondición: Permite modificar los distintos campos de la Estructura Alumno.
 void Modificar_ficha(int index);
