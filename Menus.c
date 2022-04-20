@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Fecha *fech, int i)
+void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Horarios *fech, int i)
 {
     if(strcmp(user[i].Perf,"profesor")==0)
         menu_prof(user, alum, fech, i);
@@ -84,7 +84,7 @@ void menu_alum(Alumnos *alum, int n, int i)
 }
 
 
-void Menu_admin(Usuarios *user, Alumnos *alum, Materias *mat, Fecha *fech, int* alM, int* matM, int* horM, int* usM, int* salir)
+void Menu_admin(Usuarios *user, Alumnos *alum, Horarios *fech, Materias *mat, int* alM, int* matM, int* horM, int* usM, int* salir)
 {
 	int op;
 
