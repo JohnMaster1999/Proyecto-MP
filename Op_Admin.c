@@ -8,23 +8,9 @@
 #include "Op_mat.h"
 #include "Op_fecha.h"
 
-/*Alumnos *clase;                                   En fichero Op_Admin.h
-Usuarios *prof;
-Materias *mat;
-Fecha *hor;
-
-int num_prof, num_alum, num_mat, num_hor;
-
-prof = (Usuarios*)malloc(num_prof*sizeof(Usuarios));
-clase = (Alumnos*)malloc(num_alum*sizeof(Alumnos));
-mat = (Materias*)malloc(num_mat*sizeof(Materias));
-clase = (Fecha*)malloc(num_hor*sizeof(Fecha));*/
-
-int salir = 0;
-
 // ### OPERACIONES ###
 
-void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // TODAVÍA NO ESTÁ TERMINADO
+void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // Faltan funciones Horarios
 {
     switch(op1)
     {
@@ -68,11 +54,10 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
         }
         break;
 
-        case 3: //### (REPASAR) Funciones del módulo de Manuel ###
+        case 3:
         {
             materias_darDeAlta(mat[num_mat]);
-            //mat[num_mat] = materias_crear(mat[num_mat].Id_materia, );
-
+            mat[num_mat] = materias_crear(mat[num_mat].Id_materia, );
         }
         break;
 
@@ -85,45 +70,7 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op
         default:
         {
             printf("Ha ocurrido un error.\n");
-            system("cls");
-            Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
-        }
-
-    }
-}
-
-void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // TODAVÍA NO ESTÁ TERMINADO
-{
-    switch(op1)
-    {
-        case 1:
-        {
-
-        }
-        break;
-
-        case 2:
-        {
-
-        }
-        break;
-
-        case 3: //### (REPASAR) Funciones del módulo de Manuel ###
-        {
-            materias_darDeBaja(Id_mat);
-        }
-        break;
-
-        case 4: //### Funciones del módulo de Manuel ###
-        {
-
-        }
-        break;
-
-        default:
-        {
-            printf("Ha ocurrido un error.\n");
-            system("cls");
+            //system("cls"); Para usuarios de Windows
             Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
         }
 
@@ -142,12 +89,87 @@ void Selec_Usuario(Usuarios *prof, int *p)
     {
         if(strcmp(s, prof[i].Nomb) == 0)
         {
-            *p = i;       // Pasamos por referencia el valor de i a la variable a
+            *p = i;       // Pasamos por referencia el valor de i a la variable p
             i = num_prof; // Condición de salida
         }
         else i++;
 
     }while(i < num_prof);
+}
+
+void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // Faltan funciones Horarios
+{
+    int p, a, m, h, i;
+
+    switch(op1)
+    {
+        case 1:
+        {
+            Selec_Usuario(prof, &p);
+
+            for(i = p; i < num_prof; i++)
+                *(prof+i) = *(prof+i+1);
+
+            num_prof--;
+
+            prof = (Usuarios*)realloc(prof,num_prof*sizeof(Usuarios));
+
+
+            if(prof != NULL && num_prof > 0)
+            {
+                printf("Proceso terminado con %cxito.\n", 130);
+            }
+            else
+            {
+                printf("Ha ocurrido un error.\n");
+                //system("cls"); Para usuarios de Windows
+                Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
+            }
+        }
+        break;
+
+        case 2:
+        {
+            Selec_Alumno(clase, &a);
+
+            for(i = a; i < num_alum; i++)
+                *(clase+i) = *(clase+i+1);
+
+            num_alum--;
+
+            clase = (Alumnos*)realloc(clase,num_alum*sizeof(Alumnos));
+
+
+            if(clase != NULL && num_alum > 0)
+            {
+                printf("Proceso terminado con %cxito.\n", 130);
+            }
+            else
+            {
+                printf("Ha ocurrido un error.\n");
+                //system("cls"); Para usuarios de Windows
+                Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
+            }
+        }
+        break;
+
+        case 3: materias_darDeBaja(m);
+        break;
+
+        case 4: //### Funciones del módulo de Manuel ###
+        {
+
+        }
+        break;
+
+        default:
+        {
+            printf("Ha ocurrido un error.\n");
+            //system("cls"); Para usuarios de Windows
+            Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
+        }
+
+    }
 }
 
 int Opciones_Usuario()
@@ -187,7 +209,7 @@ void Modificar_usuario(int p, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(prof[p].idUs == NULL);
@@ -207,7 +229,7 @@ void Modificar_usuario(int p, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(prof[p].Nomb == NULL);
@@ -227,7 +249,7 @@ void Modificar_usuario(int p, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(prof[p].Perf == NULL);
@@ -247,7 +269,7 @@ void Modificar_usuario(int p, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                    //system("cls"); Para usuarios de Windows
                 }
 
             }while(prof[p].NomU == NULL);
@@ -268,7 +290,7 @@ void Modificar_usuario(int p, int *salir)
                 {
                     printf("Ha ocurrido un error, vuelva a intentarlo.");
                     *salir = 1;
-                    system("cls");
+                   //system("cls"); Para usuarios de Windows
                 }
 
             }while(prof[p].pass == NULL);
@@ -284,13 +306,13 @@ void Modificar_usuario(int p, int *salir)
 
             if( c == 's')
             {
-                system("cls");
+                //system("cls"); Para usuarios de Windows
                 Menu_Operaciones(prof, clase, mat, hor, op1, salir);
                 *salir = 1;
             }
             else
             {
-                system("cls");
+                //system("cls"); Para usuarios de Windows
                 Modificar_usuario(p);
             }
 
@@ -306,9 +328,9 @@ void Modificar_usuario(int p, int *salir)
     }
 }
 
-void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // TODAVÍA NO ESTÁ TERMINADO
+void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int op1) // Faltan funciones Horarios
 {
-    int p, a;
+    int p, a, m, h;
     switch(op1)
     {
         case 1:
@@ -331,10 +353,7 @@ void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int o
         }
         break;
 
-        case 3: //### (REPASAR) Funciones del módulo de Manuel ###
-        {
-            materias_modificar(Id_mat, mat);
-        }
+        case 3: materias_modificar(m, mat);
         break;
 
         case 4: //### Funciones del módulo de Manuel ###
@@ -346,13 +365,13 @@ void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor, int o
         default:
         {
             printf("Ha ocurrido un error.\n");
-            system("cls");
+           //system("cls"); Para usuarios de Windows
             Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
         }
     }
 }
 
-void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, int op1) // TODAVÍA NO ESTÁ TERMINADO
+void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, int op1) // Faltan funciones Horarios
 {
     int i = 0;
 
@@ -370,16 +389,10 @@ void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, int op1) 
         }
         break;
 
-        case 2:
-        {
-            Lista_alum(clase);
-        }
+        case 2: Lista_alum(clase);
         break;
 
-        case 3: //### (REPASAR) Funciones del módulo de Manuel ###
-        {
-            materias_listar(n, Id_mat);
-        }
+        case 3: materias_listar(n, Id_mat);
         break;
 
         case 4: //### Funciones del módulo de Manuel ###
@@ -391,7 +404,7 @@ void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor, int op1) 
         default:
         {
             printf("Ha ocurrido un error.\n");
-            system("cls");
+            //system("cls"); Para usuarios de Windows
             Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
         }
     }
@@ -432,14 +445,14 @@ void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Fecha *hor,
             case 5:
             {
                 printf("Volviendo al men%c anterior.\n", 163);
-                system("cls");
+                //system("cls"); Para usuarios de Windows
                 *salir = 1;
             }
             break;
             default:
             {
                 printf("La opci%cn introducida es errónea, por favor introduzca nuevamente una opci%cn.\n", 162, 162);
-                system("cls");
+                //system("cls"); Para usuarios de Windows
                 *salir = 1;
             }
         }
@@ -489,9 +502,9 @@ void Selec_Materia(Alumnos *clase, int *a, int *m)
 
     do
     {
-        if(id == clase[a]->materias[i]->Calf_.Id_materia)
+        if(id == clase[a].materias[i].Calf_.Id_materia)
         {
-            *m = i;       // Pasamos por referencia el valor de i a la variable a
+            *m = i;       // Pasamos por referencia el valor de i a la variable m
             i = num_mat; // Condición de salida
         }
         else i++;
@@ -525,7 +538,7 @@ void Cambiar_Matricula(int a, int m)
         case 2:
         {
             printf("Introduzca el nuevo ID de Alumno: ");
-            scanf("%d", clase[a]->materias[m]->Calf_.Id_materia);
+            scanf("%d", clase[a].materias[m].Calf_.Id_materia);
 
             printf("\nCambio realizado con %cxito.\n", 130);
         }
@@ -533,19 +546,42 @@ void Cambiar_Matricula(int a, int m)
         default:
         {
             printf("La opci%cn introducida no es correcta, vuelva a intentarlo.\n", 162);
-            system("cls");
+            //system("cls"); Para usuarios de Windows
             Cambiar_Matricula(a, m);
         }
     }
 }
 
-void Borrar_Matricula(int a, int m) // TODAVÍA NO ESTÁ TERMINADO
+void Borrar_Matricula(Alumnos *clase, int a, int m)
 {
+    int i;
+
+    Selec_Materia(clase, &a, &m);
+
+    for(i = m; i < num_mat; i++)
+    {
+        *(clase[a].materias[m].Calf+i) = *(clase[a].materias[m].Calf+i+1);
+    }
+
+    num_mat--;
+
+    clase[a].materias[m].Calf = (Alumnos*)realloc(clase[a].materias[m].Calf, num_mat*sizeof(Alumnos));
+
+    if(clase[a].materias[m].Calf != NULL)
+    {
+        printf("Proceso terminado con %cxito.\n", 130);
+    }
+    else
+    {
+        printf("Ha ocurrido un error.\n");
+        //system("cls"); Para usuarios de Windows
+        Matriculas_alumno(clase);
+    }
 }
 
 void Crear_Matricula(int a, int m))
 {
-    clase[a]->materias[m]->Calf_ = (Calif*)realloc(clase[a]->materias[m]->Calf_, (num_calif+1)*sizeof(Calif));
+    clase[a].materias[m].Calf_ = (Calif*)realloc(clase[a].materias[m].Calf_, (num_calif+1)*sizeof(Calif));
 
     printf("Introduzca el ID de Alumno: ");
     scanf("%d", clase[a].idUs);
@@ -555,19 +591,19 @@ void Crear_Matricula(int a, int m))
     else
     {
         printf("Ha ocurrido un error, vuelva a intentarlo.\n");
-        system("cls");
+        //system("cls"); Para usuarios de Windows
         Crear_Matricula(a, m);
     }
 
     printf("Introduzca el nuevo ID de Alumno: ");
-    scanf("%d", clase[a]->materias[m]->Calf_.Id_materia);
+    scanf("%d", clase[a].materias[m].Calf_.Id_materia);
 
-    if(clase[a]->materias[m]->Calf_.Id_materia != NULL)
+    if(clase[a].materias[m].Calf_.Id_materia != NULL)
         printf("\nCambio realizado con %cxito.\n", 130);
     else
     {
         printf("Ha ocurrido un error, vuelva a intentarlo.\n");
-        system("cls");
+        //system("cls"); Para usuarios de Windows
         Crear_Matricula(a, m);
     }
 }
@@ -582,7 +618,7 @@ void Matriculas_alumno(Alumnos *clase)
 
     while(i < num_mat)
     {
-        printf("%d  ||  %d\n", clase[a].idUs, clase[a]->materias[i]->Calf_.Id_materia);
+        printf("%d  ||  %d\n", clase[a].idUs, clase[a].materias[i].Calf_.Id_materia);
         i++;
     }
 
@@ -601,7 +637,7 @@ void Matriculas_alumno(Alumnos *clase)
 
         case 4:
         {
-            system("cls");
+            //system("cls"); Para usuarios de Windows
             Menu_admin(prof, clase, mat, hor);
         }
         break;
@@ -609,7 +645,7 @@ void Matriculas_alumno(Alumnos *clase)
         default:
         {
             printf("La opci%cn introducida no es correcta, vuelva a intentarlo.\n");
-            system("cls");
+            //system("cls"); Para usuarios de Windows
             Matriculas_alumno(clase);
         }
 
@@ -654,7 +690,7 @@ void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Fechas *hor) //##
         {
             printf("La opci%cn introducida es err%cnea, por favor introduzca nuevamente una opci%cn.\n", 162, 162, 162);
             salir = 1;
-            system("cls");
+            //system("cls"); Para usuarios de Windows
         }
     }
 }
