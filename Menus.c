@@ -7,7 +7,9 @@ void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Fecha *fech, int i)
     if(strcmp(user[i].Perf,"profesor")==0)
         menu_prof(user, alum, fech, i);
     if(strcmp(user[i].Perf,"administrador")==0)
-        Menu_Admin(user, alum, fech, mat);
+        do{
+	    Menu_Admin(user, alum, fech, mat);
+	}while(salir == 1);
 }
 
 void menu_prof(Usuarios *user, Alumnos *alum, int i)
@@ -126,7 +128,6 @@ void Menu_admin(Usuarios *user, Alumnos *alum, Materias *mat, Fecha *fech)
         {
             printf("La opci%cn introducida es err%cnea, por favor introduzca nuevamente una opci%cn.\n", 162, 162, 162);
             salir = 1;
-            system("cls");
         }
     }
 }
