@@ -8,7 +8,7 @@ void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Fecha *fech, int i)
         menu_prof(user, alum, fech, i);
     if(strcmp(user[i].Perf,"administrador")==0)
         do{
-	    Menu_Admin(user, alum, fech, mat);
+	    Menu_Admin(user, alum, fech, mat, &alM, &matM, &horM, &usM, &salir);
 	}while(salir == 1);
 }
 
@@ -83,7 +83,7 @@ void menu_alum(Alumnos *alum, int n, int i)
 }
 
 
-void Menu_admin(Usuarios *user, Alumnos *alum, Materias *mat, Fecha *fech)
+void Menu_admin(Usuarios *user, Alumnos *alum, Materias *mat, Fecha *fech, int* alM, int* matM, int* horM, int* usM, int* salir)
 {
 	int op;
 
