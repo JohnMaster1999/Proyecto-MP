@@ -12,7 +12,7 @@ int main()
     Materias* mate;
     Horarios* hor;
     Usuarios* usu;
-    int alM, matM, horM, usM, n;
+    int alM, matM, horM, usM, n, salir = 0;
 
     Carga_datos(al, mate, hor, usu, &alM, &matM, &horM, &usM);
 
