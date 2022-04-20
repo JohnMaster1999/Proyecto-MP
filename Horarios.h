@@ -7,7 +7,7 @@ typedef struct
   int Dia_Clase;
   int Hora_Clase;
   int Id_materia;
-  char Grupo[51];
+  char Grupo[11];
 } Horarios;
 
 #endif
