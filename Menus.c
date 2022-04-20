@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Horarios *fech, int i, int* alM, int* matM, int* horM, int* usM)
+void menu_prin(Usuarios *user, Alumnos *alum, Materias *mat, Horarios *fech, int i, int* alM, int* matM, int* horM, int* usM, int* salir)
 {
     if(strcmp(user[i].Perf,"profesor")==0)
         menu_prof(user, alum, fech, i);
     if(strcmp(user[i].Perf,"administrador")==0)
         do{
-	    Menu_Admin(user, alum, fech, mat, &alM, &matM, &horM, &usM, &salir);
+	    Menu_admin(user, alum, fech, mat, &alM, &matM, &horM, &usM, &salir);
 	}while(salir == 1);
 }
 
