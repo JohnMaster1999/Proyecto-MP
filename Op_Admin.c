@@ -450,22 +450,6 @@ void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *h
         }
 }
 
-int Menu_Admin1()
-{
-    int op;
-    printf("Men%c: Administrador\n\n", 163);
-
-    printf("\t1.-Usuarios.\n");
-    printf("\t2.-Alumnos.\n");
-    printf("\t3.-Materias.\n");
-    printf("\t4.-Horarios.\n\n");
-
-    printf("Indique una opci%cn: ", 162);
-    scanf("%d", &op);
-
-    return op;
-}
-
 // ### OPERACIONES DE MATRÍCULAS DE ALUMNO ###
 
 int Menu_Matriculas()
@@ -648,7 +632,23 @@ void Matriculas_alumno(Alumnos *clase)
 
 // ### MENÚ PRINCIPAL ###
 
-void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  int *num_alum, int *num_mat, int *num_prof, int *num_hor)
+int Menu_Admin1()
+{
+    int op;
+    printf("Men%c: Administrador\n\n", 163);
+
+    printf("\t1.-Usuarios.\n");
+    printf("\t2.-Alumnos.\n");
+    printf("\t3.-Materias.\n");
+    printf("\t4.-Horarios.\n\n");
+
+    printf("Indique una opci%cn: ", 162);
+    scanf("%d", &op);
+
+    return op;
+}
+
+void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  int *num_alum, int *num_mat, int *num_prof, int *num_hor, int salir)
 {
     int op1 = Menu_Admin1();
 
@@ -658,7 +658,7 @@ void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  i
         {
             do
             {
-                Menu_Operaciones(prof, clase, mat, hor, op1, &salir,  &num_alum, &num_mat, &num_prof, &num_hor);
+                Menu_Operaciones(prof, clase, mat, hor, op1, &salir, &num_alum, &num_mat, &num_prof, &num_hor);
 
             }while(salir == 0);
 
@@ -672,7 +672,7 @@ void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  i
         {
             do
             {
-                Menu_Operaciones(prof, clase, mat, hor, op1, &salir);
+                Menu_Operaciones(prof, clase, mat, hor, op1, &salir, &num_alum, &num_mat, &num_prof, &num_hor);
 
             }while(salir == 0);
 
