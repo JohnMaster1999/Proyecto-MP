@@ -8,7 +8,7 @@ void carga_usu(Usuarios* usu, int* max)
 	//int cmax = 59;
 	char c[59];
 	*max = 0;
-	int i, j;
+	int i = 0, j;
 
 
 	us = fopen ("Usuario.txt", "r");
@@ -67,7 +67,7 @@ void carga_usu(Usuarios* usu, int* max)
 			{
 				usu[*max-1].pass[j] = c[i];
 				i++; j++;
-			}while(c[i]!= '/0');
+			}while(c[i]!= '/0' && c[i] != EOF);
 			usu[*max-1].pass[j] = '/0';
 			i=0;
 
@@ -83,7 +83,7 @@ void carga_mat(Materias* mate, int* max)
 	//int cmax = 59;
 	char c[59];
 	*max = 0;
-	int i, j;
+	int i = 0, j;
 
 	mat = fopen ("Materias.txt", "r");
 
@@ -121,7 +121,7 @@ void carga_mat(Materias* mate, int* max)
 			{
 				mate[*max-1].Abrev_materia[j] = c[i];
 				i++; j++;
-			}while (c[i] != '/0');
+			}while (c[i] != '/0' && c[i] != EOF);
 			mate[*max-1].Abrev_materia[j] = '/0';
 			i = 0;
 
@@ -136,7 +136,7 @@ void carga_hor(Horarios* h, int* max)
 	//int cmax = 59;
 	char c[59];
 	*max = 0;
-	int i, j;
+	int i = 0, j;
 
 	hor = fopen ("Horarios.txt", "r");
 
@@ -192,12 +192,119 @@ void carga_hor(Horarios* h, int* max)
 			{
 				h[*max-1].Grupo[j] = c[i];
 				i++; j++;
-			}while (c[i] != '/0');
+			}while (c[i] != '/0' && c[i] != EOF);
 			h[*max-1].Grupo[j] = '/0';
 			i = 0;
 		}
 		fclose(hor);
 	}
+}
+
+void carga_cal(Calif* ca, int* max, int idM, int idA)
+{
+	FILE * cal;
+	//int cmax = 59;
+	char c[57];
+	*max = 0;
+	int i = 0, j;
+
+	cal = fopen ("Calificaciones.txt", "r");
+
+	if (cal == NULL)
+	{
+		puts("Se ha producido un error en la apertura del fichero: Calificaciones.txt");
+		exit (1);
+	}else
+	{//CALIFICACIONES.TXT abierto exitosamente
+		while(fgets(c, 57, cal) != NULL)
+		{
+			i = 41;
+			j = 0;
+			char idMa[4];
+			int idMat;
+			do
+			{
+				idMa[j] = c[i];
+				i++; j++;
+			}while(c[i]!='-');
+			sscanf(idMa, "%d", &idMat);
+			i++;
+			
+			j = 0;
+			char idAl[6];
+			int idAlu;
+			do
+			{
+				idAl[j] = c[i];
+				i++; j++;
+			}while(c[i]!='-');
+			sscanf(idAl, "%d", &idAlu);
+
+			if (idMat == idM && idAlu == idA)
+			{
+				*max++;
+				ca = (Calif*) realloc(ca, *max * sizeof(Calif));
+
+				i = 0;
+				j = 0;
+				char dia[2];
+				do
+				{
+					dia[j] = c[i];
+					i++; j++;
+				}while(c[i]!='/');
+				sscanf(dia, "%d", &ca[*max].Fech_calif.dia);
+				i++;
+				
+				j = 0;
+				char mes[2];
+				do
+				{
+					mes[j] = c[i];
+					i++; j++;
+				}while(c[i]!='/');
+				sscanf(mes, "%d", &ca[*max].Fech_calif.mes);
+				i++;
+				
+				j = 0;
+				char anio[4];
+				do
+				{
+					anio[j] = c[i];
+					i++; j++;
+				}while(c[i]!='-');
+				sscanf(anio, "%d", &ca[*max].Fech_calif.anio);
+				i++;
+				
+				j = 0;
+				do
+				{
+					ca[*max].Desc_calif[j] = c[i];
+					i++; j++;
+				}while(c[i]!='-');
+				ca[*max].Desc_calif[j] = '/0';
+				i++;
+
+				ca[*max].Id_amun = idA;
+
+				ca[*max].Id_materia = idM;
+
+				i = 55;
+				j = 0;
+				char calficacion[2];
+				do
+				{
+					calficacion[j] = c[i];
+					i++; j++;
+				}while(c[i]!='/0' && c[i] != EOF);
+				sscanf(calficacion, "%d", &ca[*max].Valor_calif);
+
+			}
+
+		}
+		fclose(cal);
+	}
+
 }
 
 void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
@@ -206,7 +313,7 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 	//int cmax = 59;
 	char c[132];
 	*max = 0;
-	int i, j;
+	int i = 0, j;
 
 	alu = fopen ("Alumnos.txt", "r");
 
@@ -272,7 +379,7 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 			{
 				al[*max-1].Grup[j] = c[i];
 				i++; j++;
-			}while (c[i] != '/0');
+			}while (c[i] != '/0' && c[i] != EOF);
 			al[*max-1].Grup[j] = '/0';
 			i++;
 
@@ -288,7 +395,7 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 				exit (1);
 			}else
 			{//MATRICULAS.TXT abierto exitosamente
-				while(fgets(c, 12, matri) != NULL)
+				while(fgets(c2, 12, matri) != NULL)
 				{
 					j = 0;
 					i = 5;
@@ -298,7 +405,7 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 					{
 						id_alum[j] = c[i];
 						i++; j++;
-					}while(c[i]!='/0');
+					}while(c[i]!='/0' && c[i] != EOF);
 					sscanf(id_alum, "%d", &idAlMa);
 
 					if (id_alum == al[*max-1].idUs)
@@ -328,10 +435,13 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 							}
 							i++;
 						} while (i<=maxM);
-					
+
+						carga_cal (al[*max].Materias[al[*max].nMat].Calf_, &al[*max].Materias[al[*max].nMat].nCal, idMaMa, idAlMa);
+
 					}					
 
-				}fclose(matri);
+				}
+				fclose(matri);
 			}
 
 		}
