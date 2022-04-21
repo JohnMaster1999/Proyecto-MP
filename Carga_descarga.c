@@ -1,5 +1,6 @@
 #include "Carga_descarga.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void carga_usu(Usuarios* usu, int* max)
