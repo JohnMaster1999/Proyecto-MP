@@ -1,6 +1,6 @@
+#include "Alumnos.h"
 #include "Op_alum.h"
 #include "Op_Prof.h"
-#include "Alumnos.h"
 
 void Selec_Alumno(Alumnos *clase, int *a)
 {

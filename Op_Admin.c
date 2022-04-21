@@ -10,7 +10,7 @@
 
 // ### OPERACIONES ###
 
-void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *num_alum, int *num_mat, int *num_prof, int *num_hor) // Faltan funciones Horarios
+void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *num_alum, int *num_mat, int *num_prof, int *num_hor)
 {
     switch(op1)
     {
@@ -98,7 +98,7 @@ void Selec_Usuario(Usuarios *prof, int *p)
     }while(i < num_prof);
 }
 
-void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *num_alum, int *num_mat, int *num_prof, int *num_hor) // Faltan funciones Horarios
+void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *num_alum, int *num_mat, int *num_prof, int *num_hor)
 {
     int p, a, m, h, i;
 
@@ -367,7 +367,7 @@ void Modificar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int
     }
 }
 
-void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1) // Faltan funciones Horarios
+void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1)
 {
     int i = 0, dia, hora;
 
@@ -403,7 +403,7 @@ void Listar(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op
     }
 }
 
-int Menu_Admin2() // Esto va en Menus.c
+int Menu_Admin2()
 {
     int option;
 
@@ -421,7 +421,7 @@ int Menu_Admin2() // Esto va en Menus.c
     return option;
 }
 
-void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *salir, int *num_alum, int *num_mat, int *num_prof, int *num_hor) // Esto va en Menus.c
+void Menu_Operaciones(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int op1, int *salir, int *num_alum, int *num_mat, int *num_prof, int *num_hor)
 {
     int op2 = Menu_Admin2();
 
@@ -628,64 +628,5 @@ void Matriculas_alumno(Alumnos *clase)
             Matriculas_alumno(clase);
         }
 
-    }
-}
-
-// ### MENÚ PRINCIPAL ###
-
-int Menu_Admin1() // Esto va en Menus.c
-{
-    int op;
-    printf("Men%c: Administrador\n\n", 163);
-
-    printf("\t1.-Usuarios.\n");
-    printf("\t2.-Alumnos.\n");
-    printf("\t3.-Materias.\n");
-    printf("\t4.-Horarios.\n\n");
-
-    printf("Indique una opci%cn: ", 162);
-    scanf("%d", &op);
-
-    return op;
-}
-
-void Menu_admin(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor,  int *num_alum, int *num_mat, int *num_prof, int *num_hor, int salir) // Esto va en Menus.c
-{
-    int op1 = Menu_Admin1();
-
-    switch(op1)
-    {
-        case 2:
-        {
-            do
-            {
-                Menu_Operaciones(prof, clase, mat, hor, op1, &salir, &num_alum, &num_mat, &num_prof, &num_hor);
-
-            }while(salir == 0);
-
-            Matriculas_alumno(clase);
-        }
-        break;
-
-        case 1:
-        case 3:
-        case 4:
-        {
-            do
-            {
-                Menu_Operaciones(prof, clase, mat, hor, op1, &salir, &num_alum, &num_mat, &num_prof, &num_hor);
-
-            }while(salir == 0);
-
-            Menu_admin(prof, clase, mat, hor);
-        }
-        break;
-
-        default:
-        {
-            printf("La opci%cn introducida es err%cnea, por favor introduzca nuevamente una opci%cn.\n", 162, 162, 162);
-            salir = 1;
-            //system("cls"); Para usuarios de Windows
-        }
     }
 }
