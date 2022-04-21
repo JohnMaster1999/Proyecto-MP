@@ -4,9 +4,9 @@
 
 // ### GRUPOS ###
 
-void Selec_Grupo(Alumnos *clase, int *n)
+int Selec_Grupo(Alumnos *clase)
 {
-    int i = 0;
+    int i = 0, n;
     char cad[11];
 
     printf("Indique el grupo que desea seleccionar: \n");
@@ -16,18 +16,19 @@ void Selec_Grupo(Alumnos *clase, int *n)
     {
         if(strcmp(cad, clase[i].Grup) == 0)
         {
-            *n = i;       // Pasamos por referencia el valor de i a la variable n
+            n = i;       // Pasamos por referencia el valor de i a la variable n
             i = num_grup; // Condición de salida
         }
         else i++;
 
     }while(i < num_grup);
 
+    return n;
 }
 
-void Lista_Grupos(Alumnos *clase)
+int Lista_Grupos(Alumnos *clase)
 {
-    int i = 0, n;
+    int i = 0, m;
 
     while(i < num_grup)
     {
@@ -35,53 +36,7 @@ void Lista_Grupos(Alumnos *clase)
         i++;
     }
 
-    Selec_Grupo(clase, &n);
-    Menu_Grupo(clase, n);
-}
-
-int Opciones_Grupo() // Esto va en Menus.c
-{
-    int opcion;
-
-    printf("\t1.Lista de Alumnos\n");
-    printf("\t2.Cambiar de grupo\n\n");
-
-    printf("Indique una opci%cn: ", 162);
-    scanf("%d", &opcion);
-
-    return opcion;
-}
-
-void Menu_Grupo(Alumnos *clase, int n) // Esto va en Menus.c
-{
-    printf("GRUPO %s  MATERIA %s", clase[n].Grup, clase[n].Materias.Mat)
-
-    int op = Opciones_Grupo(), a;
-
-    switch(op)
-    {
-        case 1:
-        {
-            Lista_alum(clase); //, n);
-            Selec_Alumno(clase, &a);
-            Menu_Alumno(clase, a, n);
-        }
-        break;
-
-        case 2:
-        {
-            int c;
-
-            printf("%cEst%c seguro que desea cambiar de grupo?: (s/n)\n", 168, 160);
-            scanf("%c", &c);
-
-            if( c == 's')
-                Lista_Grupos(clase);
-            else
-                Menu_Grupo(clase, n);
-        }
-        break;
-    }
+    return m = Selec_Grupo(clase);
 }
 
 // ### ALUMNOS ###
@@ -255,49 +210,5 @@ void Modificar_ficha(int index, int n, int *salir)
         break;
 
         default: printf("Ha ocurrido un error\n");
-    }
-}
-
-int Opciones_Alumno() // Esto va en Menus.c
-{
-    int opcion;
-
-    printf("\t1.Ficha del alumno\n");
-    printf("\t2.Calificaciones del alumno\n");
-    printf("\t3.Volver")
-
-    printf("Indique una opci%cn: ", 162);
-    scanf("%d", &opcion);
-
-    return opcion;
-}
-
-void Menu_Alumno(Alumnos *clase, int a, int n) // Esto va en Menus.c
-{
-    printf("ALUMNO: %s\n\n", clase[a].Nomb);
-
-    int op = Opciones_Alumno();
-
-    switch(op)
-    {
-        case 1: ficha_alumnos(clase, a, n);
-        break;
-
-        case 2: Calificaciones_alum(clase, a, n);
-        break;
-
-        case 3:
-        {
-            int c;
-
-            printf("%cEst%c seguro que desea volver atr%cs?: (s/n)\n", 168, 160, 160);
-            scanf("%c", &c);
-
-            if( c == 's')
-                Menu_Grupo(clase, n);
-            else
-                Menu_Alumno(clase, a, n);
-        }
-        break;
     }
 }
