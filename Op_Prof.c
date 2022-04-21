@@ -4,26 +4,44 @@
 
 // ### GRUPOS ###
 
+int comprobar_error(char *s, int tam)
+{
+    int e = 1, l = strlen(s);
+
+    if(l != tam)
+    {
+        printf("El nombre del grupo es incorrecto, intentelo de nuevo.\n");
+        return e = 0;
+    }
+    else return e;
+}
+
 int Selec_Grupo(Alumnos *clase)
 {
     int i = 0, n;
     char cad[11];
 
     printf("Indique el grupo que desea seleccionar: \n");
-    gets(cad);
+    gets(cad);                                                                              1
 
-    do
+    if(comprobar_error(cad, 11))                                                            2
     {
-        if(strcmp(cad, clase[i].Grup) == 0)
+
+        do
         {
-            n = i;       // Pasamos por referencia el valor de i a la variable n
-            i = num_grup; // Condición de salida
-        }
-        else i++;
+            if(strcmp(cad, clase[i].Grup) == 0)                                             3
+            {
+                n = i;       // Pasamos por referencia el valor de i a la variable n        4
+                i = num_grup; // Condición de salida                                        5
+            }
+            else i++;                                                                       6
 
-    }while(i < num_grup);
+        }while(i < num_grup);                                                               7
 
-    return n;
+        return n;                                                                           8
+    }
+    else
+        Selec_Grupo(clase);                                                                 9
 }
 
 int Lista_Grupos(Alumnos *clase)
