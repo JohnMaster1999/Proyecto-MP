@@ -12,7 +12,7 @@ void carga_usu(Usuarios* usu, int* max)
 	int i = 0, j;
 
 
-	us = fopen ("Usuario.txt", "r");
+	us = fopen("DATA/Usuario.txt", "r");
 
 
 	if (us == NULL)
@@ -86,7 +86,7 @@ void carga_mat(Materias* mate, int* max)
 	*max = 0;
 	int i = 0, j;
 
-	mat = fopen ("Materias.txt", "r");
+	mat = fopen("DATA/Materias.txt", "r");
 
 	if (mat == NULL)
 	{
@@ -139,7 +139,7 @@ void carga_hor(Horarios* h, int* max)
 	*max = 0;
 	int i = 0, j;
 
-	hor = fopen ("Horarios.txt", "r");
+	hor = fopen("DATA/Horarios.txt", "r");
 
 	if (hor == NULL)
 	{
@@ -209,7 +209,7 @@ void carga_cal(Calif* ca, int* max, int idM, int idA)
 	*max = 0;
 	int i = 0, j;
 
-	cal = fopen ("Calificaciones.txt", "r");
+	cal = fopen("DATA/Calificaciones.txt", "r");
 
 	if (cal == NULL)
 	{
@@ -316,7 +316,7 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 	*max = 0;
 	int i = 0, j;
 
-	alu = fopen ("Alumnos.txt", "r");
+	alu = fopen("DATA/Alumnos.txt", "r");
 
 	if (alu == NULL)
 	{
@@ -388,7 +388,7 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 			char c2[12];
 			al[*max-1].nMat = 0;
 			
-			matri = fopen ("Matriculas.txt", "r");
+			matri = fopen("DATA/Matriculas.txt", "r");
 
 			if (matri == NULL)
 			{
@@ -456,7 +456,7 @@ void guarda_usu(Usuarios* usu, int* max)
 	FILE *fich;
     int i=0;
 
-    fich=fopen("Usuarios.txt","w+");
+    fich=fopen("DATA/Usuarios.txt","w+");
 
     while(i < *max - 1)
 	{
@@ -474,7 +474,7 @@ void guarda_mat(Materias* mate, int* max)
 	FILE *fich;
     int i=0;
 
-    fich=fopen("Materias.txt","w+");
+    fich=fopen("DATA/Materias.txt","w+");
 
 	while(i < *max - 1)
 	{
@@ -492,7 +492,7 @@ void guarda_hor(Horarios* h, int* max)
 	FILE *fich;
     int i=0;
 
-    fich=fopen("Horarios.txt","w+");
+    fich=fopen("DATA/Horarios.txt","w+");
 
 	while(i < *max - 1)
 	{
@@ -510,7 +510,7 @@ void guarda_cal(Calif* cal, int max, char finChar)
 	FILE *fich;
     int i=0;
 
-    fich=fopen("Calificaciones.txt","a"); //append
+    fich=fopen("DATA/Calificaciones.txt","a"); //append
 
 	while(i < max - 1)
 	{
@@ -526,7 +526,7 @@ void guarda_matr(Mat_Alum* materias, int max, int idA, char finChar)
 	FILE *fich;
     int i=0;
 
-    fich=fopen("Matriculas.txt","a"); //append
+    fich=fopen("DATA/Matriculas.txt","a"); //append
 
 	while(i < max - 1)
 	{
@@ -544,9 +544,9 @@ void guarda_al(Alumnos* al, int* max)
 	FILE *fich1, *fich2, *fich3;
     int i=0;
 
-    fich1=fopen("Alumnos.txt","w+");
-	fich2=fopen("Matriculas.txt", "w+"); //Borra el contenido
-	fich3 = fopen("Calificaciones.txt", "w+"); //borra en contenido
+    fich1=fopen("DATA/Alumnos.txt","w+");
+	fich2=fopen("DATA/Matriculas.txt", "w+"); //Borra el contenido
+	fich3 = fopen("DATA/Calificaciones.txt", "w+"); //borra en contenido
 	fclose(fich2);
 	fclose(fich3);
 
