@@ -1,5 +1,7 @@
 #include "Menus.h"
-
+#include "Usuarios.h"
+#include "Alumnos.h"
+#include "Horarios.h"
 #include <stdio.h>
 #include <stdlib.h>
 
