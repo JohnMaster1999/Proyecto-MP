@@ -67,7 +67,7 @@ void carga_usu(Usuarios* usu, int* max)
 			{
 				usu[*max-1].pass[j] = c[i];
 				i++; j++;
-			}while(c[i]!= '/0' && c[i] != EOF);
+			}while(c[i]!= '/n' && c[i] != EOF);
 			usu[*max-1].pass[j] = '/0';
 			i=0;
 
@@ -121,7 +121,7 @@ void carga_mat(Materias* mate, int* max)
 			{
 				mate[*max-1].Abrev_materia[j] = c[i];
 				i++; j++;
-			}while (c[i] != '/0' && c[i] != EOF);
+			}while (c[i] != '/n' && c[i] != EOF);
 			mate[*max-1].Abrev_materia[j] = '/0';
 			i = 0;
 
@@ -192,7 +192,7 @@ void carga_hor(Horarios* h, int* max)
 			{
 				h[*max-1].Grupo[j] = c[i];
 				i++; j++;
-			}while (c[i] != '/0' && c[i] != EOF);
+			}while (c[i] != '/n' && c[i] != EOF);
 			h[*max-1].Grupo[j] = '/0';
 			i = 0;
 		}
@@ -296,7 +296,7 @@ void carga_cal(Calif* ca, int* max, int idM, int idA)
 				{
 					calficacion[j] = c[i];
 					i++; j++;
-				}while(c[i]!='/0' && c[i] != EOF);
+				}while(c[i]!='/n' && c[i] != EOF);
 				sscanf(calficacion, "%d", &ca[*max].Valor_calif);
 
 			}
@@ -379,7 +379,7 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 			{
 				al[*max-1].Grup[j] = c[i];
 				i++; j++;
-			}while (c[i] != '/0' && c[i] != EOF);
+			}while (c[i] != '/n' && c[i] != EOF);
 			al[*max-1].Grup[j] = '/0';
 			i++;
 
@@ -405,13 +405,13 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 					{
 						id_alum[j] = c[i];
 						i++; j++;
-					}while(c[i]!='/0' && c[i] != EOF);
+					}while(c[i]!='/n' && c[i] != EOF);
 					sscanf(id_alum, "%d", &idAlMa);
 
 					if (id_alum == al[*max-1].idUs)
 					{
 						al[*max-1].nMat++;
-						al[*max-1].Materias = (Materias*) realloc(al[*max-1].Materias, al[*max-1].nMat * sizeof(Materias));
+						al[*max-1].Materias = (Mat_Alum*) realloc(al[*max-1].Materias, al[*max-1].nMat * sizeof(Mat_Alum));
 
 						j = 0;
 						i = 0;
@@ -450,13 +450,120 @@ void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
 }
 
 
-void guarda_usu(Usuarios* usu, int* max);
+void guarda_usu(Usuarios* usu, int* max)
+{
+	FILE *fich;
+    int i=0;
 
-void guarda_mat(Materias* mate, int* max);
+    fich=fopen("Usuarios.txt","w+");
 
-void guarda_hor(Horarios* h, int* max);
+    while(i < *max - 1)
+	{
+      fprintf(fich, "%03d-%s-%s-%s-%s\n", usu[i].idUs, usu[i].Nomb, usu[i].Perf, usu[i].NomU, usu[i].pass);
+       i++;
+    }
+	fprintf(fich, "%03d-%s-%s-%s-%s", usu[i].idUs, usu[i].Nomb, usu[i].Perf, usu[i].NomU, usu[i].pass);
 
-void guarda_al(Alumnos* al, int* max);
+    printf("\n Usuarios guardados.\n");
+	fclose(fich);
+}
+
+void guarda_mat(Materias* mate, int* max)
+{
+	FILE *fich;
+    int i=0;
+
+    fich=fopen("Materias.txt","w+");
+
+	while(i < *max - 1)
+	{
+        fprintf(fich, "%04d-%s-%s\n", mate[i].Id_materia, mate[i].Nombre_Materia, mate[i].Abrev_materia);
+	    i++;
+    }
+	fprintf(fich, "%04d-%s-%s", mate[i].Id_materia, mate[i].Nombre_Materia, mate[i].Abrev_materia);
+
+    printf("\n Materias guardadas.\n");
+	fclose(fich);
+}
+
+void guarda_hor(Horarios* h, int* max)
+{
+	FILE *fich;
+    int i=0;
+
+    fich=fopen("Horarios.txt","w+");
+
+	while(i < *max - 1)
+	{
+    	fprintf(fich, "%03d-%d-%d-%04d-%s\n", h[i].Id_Profesor, h[i].Dia_Clase, h[i].Hora_Clase, h[i].Id_materia, h[i].Grupo);
+        i++;
+  	}
+	fprintf(fich, "%03d-%d-%d-%04d-%s", h[i].Id_Profesor, h[i].Dia_Clase, h[i].Hora_Clase, h[i].Id_materia, h[i].Grupo);
+
+    printf("\n Horarios guardados.\n");
+	fclose(fich);
+}
+
+void guarda_cal(Calif* cal, int max, char finChar)
+{
+	FILE *fich;
+    int i=0;
+
+    fich=fopen("Calificaciones.txt","a"); //append
+
+	while(i < max - 1)
+	{
+    	fprintf(fich, "%02d/%02d/%04d-%s-%04d-%06d-%d\n", cal[i].Fech_calif.dia, cal[i].Fech_calif.mes, cal[i].Fech_calif.anio, cal[i].Desc_calif, cal[i].Id_materia, cal[i].Id_amun, cal[i].Valor_calif);
+        i++;
+  	}
+	fprintf(fich, "%02d/%02d/%04d-%s-%04d-%06d-%d%c\n", cal[i].Fech_calif.dia, cal[i].Fech_calif.mes, cal[i].Fech_calif.anio, cal[i].Desc_calif, cal[i].Id_materia, cal[i].Id_amun, cal[i].Valor_calif, finChar);
+	fclose(fich);
+}
+
+void guarda_matr(Mat_Alum* materias, int max, int idA, char finChar)
+{
+	FILE *fich1, *fich2;
+    int i=0;
+
+    fich1=fopen("Matriculas.txt","a"); //append
+	fich2 = fopen("Calificaciones.txt", "w+"); //borra en contenido
+	fclose(fich2);
+
+	while(i < max - 1)
+	{
+    	fprintf(fich1, "%04d-%06d\n", materias[i].Calf_->Id_materia, idA);
+		guarda_cal(materias[i].Calf_, materias[i].nCal, '/n');
+        i++;
+  	}
+	fprintf(fich1, "%04d-%06d%c", materias[i].Calf_->Id_materia, idA, finChar);
+	guarda_cal(materias[i].Calf_, materias[i].nCal, EOF);
+	fclose(fich1);
+}
+
+void guarda_al(Alumnos* al, int* max)
+{
+	FILE *fich1, *fich2;
+    int i=0;
+
+    fich1=fopen("Alumnos.txt","w+");
+	fich2=fopen("Matriculas.txt", "w+"); //Borra el contenido
+	fclose(fich2);
+
+    while(i < *max - 1)
+	{
+        fprintf(fich1, "%06d-%s-%s-%s-%s-%s\n", al[i].idUs, al[i].Nomb, al[i].Dir, al[i].Loc, al[i].Curso, al[i].Grup);
+		guarda_matr(al[i].Materias, al[i].nMat, al[i].idUs, '/n');
+        i++;
+    }
+	fprintf(fich1, "%06d-%s-%s-%s-%s-%s", al[i].idUs, al[i].Nomb, al[i].Dir, al[i].Loc, al[i].Curso, al[i].Grup);
+	guarda_matr(al[i].Materias, al[i].nMat, al[i].idUs, EOF);
+
+	printf("\n Alumnos guardados.\n");
+    printf("\n Materias guardadas.\n");
+    printf("\n Calificaciones guardadas.\n");
+	fclose(fich1);
+	
+}
 
 void Carga_datos (Alumnos* al, Materias* mate, Horarios* hor, Usuarios* usu, int* alM, int* matM, int* horM, int* usM)
 {
