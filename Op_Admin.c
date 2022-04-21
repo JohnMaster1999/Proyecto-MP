@@ -16,20 +16,20 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int 
     {
         case 1: //Usuarios
         {
-            prof = (Usuarios*)realloc(prof, (num_prof + 1)*sizeof(Usuarios));
+            prof = (Usuarios*)realloc(prof, (*num_prof + 1)*sizeof(Usuarios));
 
             printf("Introduce los datos del nuevo Usuario: \n\n");
 
             printf("Introduzca el ID: ");
-            scanf("%d", prof[num_prof].idUs);
+            scanf("%d", prof[*num_prof].idUs);
             printf("Introduzca el Nombre: ");
-            gets(prof[num_prof].Nomb);
+            gets(prof[*num_prof].Nomb);
             printf("Introduzca el tipo de Perfil: ");
-            gets(prof[num_prof].Perf);
+            gets(prof[*num_prof].Perf);
             printf("Introduzca el Nombre de Usuario: ");
-            gets(prof[num_prof].NomU);
+            gets(prof[*num_prof].NomU);
             printf("Introduzca una Contrase%ca: ", 164);
-            gets(prof[num_prof].pass);
+            gets(prof[*num_prof].pass);
 
             *num_prof++;
         }
@@ -37,22 +37,22 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int 
 
         case 2: //Alumnos
         {
-            clase = (Alumnos*)realloc(clase, (num_alum + 1)*sizeof(Alumnos));
+            clase = (Alumnos*)realloc(clase, (*num_alum + 1)*sizeof(Alumnos));
 
             printf("Introduce los datos del nuevo Alumno: \n\n");
 
             printf("Introduzca el ID: ");
-            scanf("%d", clase[num_alum].idUs);
+            scanf("%d", clase[*num_alum].idUs);
             printf("Introduzca el Nombre: ");
-            gets(clase[num_alum].Nomb);
+            gets(clase[*num_alum].Nomb);
             printf("Introduzca la Direcci%cn: ", 162);
-            gets(clase[num_alum].Dir);
+            gets(clase[*num_alum].Dir);
             printf("Introduzca la Localidad: ");
-            gets(clase[num_alum].Loc);
+            gets(clase[*num_alum].Loc);
             printf("Introduzca el Curso: ");
-            gets(clase[num_alum].Curso);
+            gets(clase[*num_alum].Curso);
             printf("Introduzca el Grupo: ");
-            gets(clase[num_alum].Grup);
+            gets(clase[*num_alum].Grup);
 
             *num_alum++;
         }
@@ -60,8 +60,8 @@ void Dar_alta(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int 
 
         case 3:
         {
-            materias_darDeAlta(mat[num_mat]);
-            mat[num_mat] = materias_crear(mat[num_mat].Id_materia, );
+            materias_darDeAlta(mat[*num_mat]);
+            mat[*num_mat] = materias_crear(mat[*num_mat].Id_materia, );
         }
         break;
 
@@ -113,7 +113,7 @@ void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int 
 
             *num_prof--;
 
-            prof = (Usuarios*)realloc(prof,num_prof*sizeof(Usuarios));
+            prof = (Usuarios*)realloc(prof,*num_prof*sizeof(Usuarios));
 
 
             if(prof != NULL)
@@ -138,7 +138,7 @@ void Dar_baja(Usuarios *prof, Alumnos *clase, Materias *mat, Horarios *hor, int 
 
             *num_alum--;
 
-            clase = (Alumnos*)realloc(clase,num_alum*sizeof(Alumnos));
+            clase = (Alumnos*)realloc(clase,*num_alum*sizeof(Alumnos));
 
 
             if(clase != NULL && num_alum > 0)
