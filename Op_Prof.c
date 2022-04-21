@@ -8,7 +8,7 @@ int comprobar_error(char *s, int tam)
 {
     int e = 1, l = strlen(s);
 
-    if(strlen != 11)
+    if(l != tam)
     {
         printf("El nombre del grupo es incorrecto, intentelo de nuevo.\n");
         return e = 0;
