@@ -522,32 +522,32 @@ void guarda_cal(Calif* cal, int max, char finChar)
 
 void guarda_matr(Mat_Alum* materias, int max, int idA, char finChar)
 {
-	FILE *fich1, *fich2;
+	FILE *fich;
     int i=0;
 
-    fich1=fopen("Matriculas.txt","a"); //append
-	fich2 = fopen("Calificaciones.txt", "w+"); //borra en contenido
-	fclose(fich2);
+    fich=fopen("Matriculas.txt","a"); //append
 
 	while(i < max - 1)
 	{
-    	fprintf(fich1, "%04d-%06d\n", materias[i].Calf_->Id_materia, idA);
+    	fprintf(fich, "%04d-%06d\n", materias[i].Calf_->Id_materia, idA);
 		guarda_cal(materias[i].Calf_, materias[i].nCal, '/n');
         i++;
   	}
-	fprintf(fich1, "%04d-%06d%c", materias[i].Calf_->Id_materia, idA, finChar);
+	fprintf(fich, "%04d-%06d%c", materias[i].Calf_->Id_materia, idA, finChar);
 	guarda_cal(materias[i].Calf_, materias[i].nCal, EOF);
-	fclose(fich1);
+	fclose(fich);
 }
 
 void guarda_al(Alumnos* al, int* max)
 {
-	FILE *fich1, *fich2;
+	FILE *fich1, *fich2, *fich3;
     int i=0;
 
     fich1=fopen("Alumnos.txt","w+");
 	fich2=fopen("Matriculas.txt", "w+"); //Borra el contenido
+	fich3 = fopen("Calificaciones.txt", "w+"); //borra en contenido
 	fclose(fich2);
+	fclose(fich3);
 
     while(i < *max - 1)
 	{
