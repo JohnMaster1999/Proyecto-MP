@@ -7,37 +7,38 @@ void carga_usu(Usuarios* usu, int* max)
 {
 	FILE * us;
 	//int cmax = 59;
-	char c[59];
-	*max = 0;
-	int i = 0, j;
+	char c[59]; //Tamaño maximo de una linea en el fichero txt
+	*max = 0; //Tamaño actual del vector (que irá aumentando por cada iteracion)
+	int i = 0, j; //contadores
 
 
-	us = fopen("DATA/Usuario.txt", "r");
+	us = fopen("DATA/Usuario.txt", "r"); //Se abre el archivo
 
 
 	if (us == NULL)
 	{
 		puts("Se ha producido un error en la apertura del fichero: usuarios.txt");
-		exit (1);
+		exit (1); //Si el archivo no puede abrirse, termina la ejecución
 	}else
 	{ //USUARIOS.txt abierto exitosamente
 		while(fgets(c, 59, us)!=NULL)
 		{
-			*max++;
-			usu = (Usuarios*) realloc(usu, *max * sizeof(Usuarios));
+			*max++; //se añade un nuevo elemento
+			usu = (Usuarios*) realloc(usu, *max * sizeof(Usuarios)); //realloc para conservar la información de anteriore iteraciones
+																	 //Para un puntero nulo, actua como malloc 
 			
 			j = 0;
-			char id[3];
+			char id[3]; //Se obtiene el id con los 3 primeros digitos
 			do
 			{
 				id[j] = c[i];
 				i++; j++;
 			}while(c[i]!='-');
-			sscanf(id, "%d", &usu[*max-1].idUs);
+			sscanf(id, "%d", &usu[*max-1].idUs); 
 			i++;
 
 			j=0;
-			do
+			do //se copia el nombre caracter a caracter hata el guion, se añade al final el caracter nulo '/0'
 			{
 				usu[*max-1].Nomb[j] = c[i];
 				i++; j++;
@@ -46,7 +47,7 @@ void carga_usu(Usuarios* usu, int* max)
 			i++;
 
 			j=0;
-			do
+			do //se copia el perfil caracter a caracter hata el guion, se añade al final el caracter nulo '/0'
 			{
 				usu[*max-1].Perf[j] = c[i];
 				i++; j++;
@@ -55,7 +56,7 @@ void carga_usu(Usuarios* usu, int* max)
 			i++;
 
 			j=0;
-			do
+			do //se copia el nombre de usuario caracter a caracter hata el guion, se añade al final el caracter nulo '/0'
 			{
 				usu[*max-1].NomU[j] = c[i];
 				i++; j++;
@@ -64,7 +65,7 @@ void carga_usu(Usuarios* usu, int* max)
 			i++;
 
 			j=0;
-			do
+			do //se copia la contraseña caracter a caracter hata el guion, se añade al final el caracter nulo '/0'
 			{
 				usu[*max-1].pass[j] = c[i];
 				i++; j++;
@@ -77,6 +78,11 @@ void carga_usu(Usuarios* usu, int* max)
 	}
 
 }
+
+/*---------------------------------NOTA---------------------------------
+El resto de operaciones de carga sigue un esquema similar, por lo que se obvia su comentario
+
+*/
 
 void carga_mat(Materias* mate, int* max)
 {
@@ -456,18 +462,24 @@ void guarda_usu(Usuarios* usu, int* max)
 	FILE *fich;
     int i=0;
 
-    fich=fopen("DATA/Usuarios.txt","w+");
+    fich=fopen("DATA/Usuarios.txt","w+"); //Abrimos el archivo para sobreescribir en el, creandolo si no existe
 
-    while(i < *max - 1)
+    while(i < *max - 1) //Se escribe en el fichero hasta el penultimo elemento del vector
 	{
       fprintf(fich, "%03d-%s-%s-%s-%s\n", usu[i].idUs, usu[i].Nomb, usu[i].Perf, usu[i].NomU, usu[i].pass);
        i++;
     }
+	//El ultimo se ecribe por separado ya que no necesita el caracter de salto de linea al final
 	fprintf(fich, "%03d-%s-%s-%s-%s", usu[i].idUs, usu[i].Nomb, usu[i].Perf, usu[i].NomU, usu[i].pass);
 
     printf("\n Usuarios guardados.\n");
 	fclose(fich);
 }
+
+/*---------------------------------NOTA---------------------------------
+El resto de operaciones de guardado sigue un esquema similar, por lo que se obvia su comentario
+
+*/
 
 void guarda_mat(Materias* mate, int* max)
 {
@@ -545,8 +557,8 @@ void guarda_al(Alumnos* al, int* max)
     int i=0;
 
     fich1=fopen("DATA/Alumnos.txt","w+");
-	fich2=fopen("DATA/Matriculas.txt", "w+"); //Borra el contenido
-	fich3 = fopen("DATA/Calificaciones.txt", "w+"); //borra en contenido
+	fich2=fopen("DATA/Matriculas.txt", "w+"); //Borra el contenido preventivamente
+	fich3 = fopen("DATA/Calificaciones.txt", "w+"); //borra en contenido preventivamente
 	fclose(fich2);
 	fclose(fich3);
 
@@ -565,6 +577,7 @@ void guarda_al(Alumnos* al, int* max)
 	fclose(fich1);
 	
 }
+
 
 void Carga_datos (Alumnos* al, Materias* mate, Horarios* hor, Usuarios* usu, int* alM, int* matM, int* horM, int* usM)
 {
