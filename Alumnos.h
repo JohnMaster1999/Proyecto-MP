@@ -16,6 +16,7 @@ typedef struct Mat_Alum
 {
 	char Mat[51];
 	Calif* Calf_;
+	int nCal;
 
 }Mat_Alum;
 
@@ -28,6 +29,7 @@ typedef struct Alumnos
 	char Curso[31];
 	char Grup[11];
 	Mat_Alum* Materias;
+	int nMat;
 
 }Alumnos;
 

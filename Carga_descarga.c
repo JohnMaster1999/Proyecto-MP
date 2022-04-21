@@ -1,16 +1,17 @@
 #include "Carga_descarga.h"
 #include <stdio.h>
+#include <string.h>
 
 void carga_usu(Usuarios* usu, int* max)
 {
 	FILE * us;
 	//int cmax = 59;
 	char c[59];
-	*max = 1;
+	*max = 0;
 	int i, j;
 
 
-	us = fopen ("usuario.txt", "r");
+	us = fopen ("Usuario.txt", "r");
 
 
 	if (us == NULL)
@@ -21,7 +22,19 @@ void carga_usu(Usuarios* usu, int* max)
 	{ //USUARIOS.txt abierto exitosamente
 		while(fgets(c, 59, us)!=NULL)
 		{
+			*max++;
 			usu = (Usuarios*) realloc(usu, *max * sizeof(Usuarios));
+			
+			j = 0;
+			char id[3];
+			do
+			{
+				id[j] = c[i];
+				i++; j++;
+			}while(c[i]!='-');
+			sscanf(id, "%d", &usu[*max-1].idUs);
+			i++;
+
 			j=0;
 			do
 			{
@@ -57,7 +70,6 @@ void carga_usu(Usuarios* usu, int* max)
 			}while(c[i]!= '/0');
 			usu[*max-1].pass[j] = '/0';
 			i=0;
-			*max++;
 
 		}
 		fclose(us);
@@ -70,10 +82,10 @@ void carga_mat(Materias* mate, int* max)
 	FILE * mat;
 	//int cmax = 59;
 	char c[59];
-	*max = 1;
+	*max = 0;
 	int i, j;
 
-	mat = fopen ("materias.txt", "r");
+	mat = fopen ("Materias.txt", "r");
 
 	if (mat == NULL)
 	{
@@ -83,6 +95,7 @@ void carga_mat(Materias* mate, int* max)
 	{//MATERIAS.TXT abierto exitosamente
 		while(fgets(c, 59, mat) != NULL)
 		{
+			*max++;
 			mate = (Materias*) realloc(mate, *max * sizeof(Materias));
 			j = 0;
 			char id[4];
@@ -111,7 +124,6 @@ void carga_mat(Materias* mate, int* max)
 			}while (c[i] != '/0');
 			mate[*max-1].Abrev_materia[j] = '/0';
 			i = 0;
-			*max++;
 
 		}
 		fclose(mat);
@@ -123,10 +135,10 @@ void carga_hor(Horarios* h, int* max)
 	FILE * hor;
 	//int cmax = 59;
 	char c[59];
-	*max = 1;
+	*max = 0;
 	int i, j;
 
-	hor = fopen ("horarios.txt", "r");
+	hor = fopen ("Horarios.txt", "r");
 
 	if (hor == NULL)
 	{
@@ -136,7 +148,8 @@ void carga_hor(Horarios* h, int* max)
 	{//HORARIOS.TXT abierto exitosamente
 		while(fgets(c, 59, hor) != NULL)
 		{
-			h = (Materias*) realloc(h, *max * sizeof(Materias));
+			*max++;
+			h = (Horarios*) realloc(h, *max * sizeof(Horarios));
 
 			j = 0;
 			char id[3];
@@ -150,7 +163,7 @@ void carga_hor(Horarios* h, int* max)
 
 			char dia;
 			dia = c[i];
-			sscanf(id, "%d", &h[*max-1].Dia_Clase);
+			sscanf(dia, "%d", &h[*max-1].Dia_Clase);
 			i++;
 
 			j = 0;
@@ -160,7 +173,7 @@ void carga_hor(Horarios* h, int* max)
 				hor_clas[j] = c[i];
 				i++; j++;
 			}while(c[i]!='-');
-			sscanf(id, "%d", &h[*max-1].Hora_Clase);
+			sscanf(hor_clas, "%d", &h[*max-1].Hora_Clase);
 			i++;
 
 			j = 0;
@@ -170,7 +183,7 @@ void carga_hor(Horarios* h, int* max)
 				id_mat[j] = c[i];
 				i++; j++;
 			}while(c[i]!='-');
-			sscanf(id, "%d", &h[*max-1].Id_materia);
+			sscanf(id_mat, "%d", &h[*max-1].Id_materia);
 			i++;
 
 
@@ -182,13 +195,149 @@ void carga_hor(Horarios* h, int* max)
 			}while (c[i] != '/0');
 			h[*max-1].Grupo[j] = '/0';
 			i = 0;
-			*max++;
 		}
 		fclose(hor);
 	}
 }
 
-void carga_al(Alumnos* al, int* max);
+void carga_al(Alumnos* al, Materias* materias, int maxM, int* max)
+{
+	FILE * alu;
+	//int cmax = 59;
+	char c[132];
+	*max = 0;
+	int i, j;
+
+	alu = fopen ("Alumnos.txt", "r");
+
+	if (alu == NULL)
+	{
+		puts("Se ha producido un error en la apertura del fichero: alumnos.txt");
+		exit (1);
+	}else
+	{//ALUMNOS.TXT abierto exitosamente
+		while(fgets(c, 132, alu) != NULL)
+		{
+			*max++;
+			al = (Alumnos*) realloc(al, *max * sizeof(Alumnos));
+
+			j = 0;
+			char id[6];
+			do
+			{
+				id[j] = c[i];
+				i++; j++;
+			}while(c[i]!='-');
+			sscanf(id, "%d", &al[*max-1].idUs);
+			i++;
+
+			j = 0;
+			do
+			{
+				al[*max-1].Nomb[j] = c[i];
+				i++; j++;
+			}while (c[i] != '-');
+			al[*max-1].Nomb[j] = '/0';
+			i++;
+
+			j = 0;
+			do
+			{
+				al[*max-1].Dir[j] = c[i];
+				i++; j++;
+			}while (c[i] != '-');
+			al[*max-1].Dir[j] = '/0';
+			i++;
+
+			j = 0;
+			do
+			{
+				al[*max-1].Loc[j] = c[i];
+				i++; j++;
+			}while (c[i] != '-');
+			al[*max-1].Loc[j] = '/0';
+			i++;
+
+			j = 0;
+			do
+			{
+				al[*max-1].Curso[j] = c[i];
+				i++; j++;
+			}while (c[i] != '-');
+			al[*max-1].Curso[j] = '/0';
+			i++;
+
+			j = 0;
+			do
+			{
+				al[*max-1].Grup[j] = c[i];
+				i++; j++;
+			}while (c[i] != '/0');
+			al[*max-1].Grup[j] = '/0';
+			i++;
+
+			FILE *matri;
+			char c2[12];
+			al[*max-1].nMat = 0;
+			
+			matri = fopen ("Matriculas.txt", "r");
+
+			if (matri == NULL)
+			{
+				puts("Se ha producido un error en la apertura del fichero: Matriculas.txt");
+				exit (1);
+			}else
+			{//MATRICULAS.TXT abierto exitosamente
+				while(fgets(c, 12, matri) != NULL)
+				{
+					j = 0;
+					i = 5;
+					char id_alum[6];
+					int idAlMa;
+					do
+					{
+						id_alum[j] = c[i];
+						i++; j++;
+					}while(c[i]!='/0');
+					sscanf(id_alum, "%d", &idAlMa);
+
+					if (id_alum == al[*max-1].idUs)
+					{
+						al[*max-1].nMat++;
+						al[*max-1].Materias = (Materias*) realloc(al[*max-1].Materias, al[*max-1].nMat * sizeof(Materias));
+
+						j = 0;
+						i = 0;
+						char id_materia[4];
+						int idMaMa;
+						do
+						{
+							id_materia[j] = c[i];
+							i++; j++;
+						}while(c[i]!='-');
+						sscanf(id_materia, "%d", &idMaMa);
+
+						i=0;
+					
+						do
+						{
+							if (materias[i].Id_materia == idMaMa)
+							{
+								strcpy(al[*max].Materias[al[*max-1].nMat].Mat, materias[i].Nombre_Materia);
+								i = maxM + 1;
+							}
+							i++;
+						} while (i<=maxM);
+					
+					}					
+
+				}fclose(matri);
+			}
+
+		}
+		fclose(alu);
+	}
+}
 
 
 void guarda_usu(Usuarios* usu, int* max);
@@ -201,10 +350,10 @@ void guarda_al(Alumnos* al, int* max);
 
 void Carga_datos (Alumnos* al, Materias* mate, Horarios* hor, Usuarios* usu, int* alM, int* matM, int* horM, int* usM)
 {
-	carga_al(al, alM);
 	carga_usu(usu, usM);
 	carga_mat(mate, matM);
 	carga_hor(hor, horM);
+	carga_al(al, mate, *matM, alM);
 }
 
 void Guarda_datos (Alumnos* al, Materias* mate, Horarios* hor, Usuarios* usu, int* alM, int* matM, int* horM, int* usM)
