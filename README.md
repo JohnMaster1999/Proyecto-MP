@@ -2,6 +2,6 @@
 Repositorio para el proyecto del cuaderno digital para la asinatura de Metodología de la Programación.
 Integrantes:
 -Pablo ArQuellada Cebrian
--Manuel Candil Baeza
+-MCB
 -Juan Repeto Deudero
 -John Michaell Ramos Vera
